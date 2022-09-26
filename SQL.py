@@ -1,3 +1,4 @@
+import mysql.connector
 
 class Table:
     search = ('*',)
@@ -26,19 +27,34 @@ class Country(Table):
     country = 'iso_country'
 
 
+class Yhteys:
+    def __init__(self, salasana):
+        yhteys = mysql.connector.connect(
+            host='127.0.0.1',
+            port=3306,
+            database='flight_game',
+            user='root',
+            password=salasana,
+            autocommit=True)
+        self.cursor = yhteys.cursor()
+
+    def _exec(self, SQLstring):
+        self.cursor.execute(SQLstring.payload)
+
+    def hae(self, SQLstring, monta=False):
+        self._exec(SQLstring)
+        if monta:
+            return self.cursor.fetchall()
+        else:
+            return self.cursor.fetchone()
+
+
 class SQLstring:
     payload = ''
 
-    def SQLfrom(self, *args):
-        self.payload += ' FROM '
-        for arg in args:
-            self.payload += str(arg) + ', '
-        self.payload = self.payload.rstrip(', ')
-        return self
-
-    def SQLwhere(self, **kwargs):
+    def where(self, *args):
         self.payload += ' WHERE '
-        for arg in kwargs:
+        for arg in args:
             self.payload += str(arg)
         return self
 
@@ -59,5 +75,5 @@ class Select(SQLstring):
 
 
 if __name__ == '__main__':
-    aa = Select(Airport('ident', 'name'), Country('name'))
+    aa = Select(Airport('ident', 'name'), Country('name')).where('1=1')
     print(aa.payload)
