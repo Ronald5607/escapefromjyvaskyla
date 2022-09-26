@@ -11,16 +11,16 @@ yhteys = mysql.connector.connect(
         )
 
 icao1=input("Anna ensimmäisen lentoaseman ICAO-koodi: ")
-komento="jatka"
-kaydyt=[]
-while komento=="jatka":
+komento=1
+recent=[]
+while 0<komento<6:
     sql=f"SELECT latitude_deg, longitude_deg, name, ident FROM airport WHERE ident='{icao1}'"
     kursori=yhteys.cursor()
     kursori.execute(sql)
     asema1=kursori.fetchone()
     latitude=str(asema1[0])
     longitude=str(asema1[1])
-    kaydyt.append(asema1[3])
+    recent.append(asema1[3])
     print(asema1[2])
     print(longitude)
     print(latitude)
@@ -31,7 +31,7 @@ while komento=="jatka":
     etaisyydet=[]
     asemat=[]
     for i in tulos:
-        if i[0] not in kaydyt:
+        if i[0] not in recent:
             coordinates_2=(i[2], i[3])
             etaisyys = (distance.distance(coordinates_1, coordinates_2).km)
             #print(f"Lentoasemien välinen etäisyys on {etaisyys:.2f} kilometriä")
@@ -49,7 +49,8 @@ while komento=="jatka":
             print(f"{numero}: {asema}")
             valittavat.append(asema)
             numero+=1
-    valinta=int(input("valitse aseman numero: "))
-    icao1=valittavat[valinta-1][0]
-    print(kaydyt)
-    komento=input("jatka?")
+    komento=int(input("valitse aseman numero: "))
+    icao1=valittavat[komento-1][0]
+    print(recent)
+    if len(recent)==10:
+        recent.remove(recent[0])
