@@ -13,7 +13,7 @@ class Column:
 
     def __str__(self):
         if self.owner:
-            return self.owner.name + '.' + self.name
+            return self.owner.tablename + '.' + self.name
         else:
             return self.name
 
@@ -24,10 +24,16 @@ class Column:
         return other + self.name
 
     def __lt__(self, other):
-        return self.name + '<' + other
+        if other == Column:
+            return str(self) + '<' + str(other)
+        else:
+            return str(self) + '<' + "'" + str(other) + "'"
 
     def __eq__(self, other):
-        return self.name + '=' + other
+        if other == Column:
+            return str(self) + '=' + str(other)
+        else:
+            return str(self) + '=' + "'" + str(other) + "'"
 
 
 class Table:
@@ -35,19 +41,15 @@ class Table:
 
     def __init__(self, *args):
         self.search = ()
-        temp = []
         for arg in args:
             if not hasattr(self, arg):
                 raise Exception(f'ei ole saraketta {arg}')
-            else:
-                temp.append(Column(arg))
-            self.search = tuple(temp)
-
-
+        self.search = args
 
 
 class Airport(Table):
-    name = Column('airport')
+    tablename = 'airport'
+    name = Column('name')
     ident = Column('ident')
     type = Column('type')
     latitude = Column('latitude_deg')
@@ -58,7 +60,8 @@ class Airport(Table):
 
 
 class Country(Table):
-    name = Column('country')
+    tablename = 'country'
+    name = Column('name')
     country = Column('iso_country')
 
 
@@ -87,10 +90,14 @@ class Yhteys:
 class SQLstring:
     payload = ''
 
-    def where(self, *args):
+    def where(self, arg):
         self.payload += ' WHERE '
-        for arg in args:
-            self.payload += "'" + str(arg) + "'"
+        self.payload += str(arg)
+        return self
+
+    def AND(self, arg):
+        self.payload += ' AND '
+        self.payload += str(arg)
         return self
 
     def limit(self, limit):
@@ -104,9 +111,9 @@ class Select(SQLstring):
         frompayload = ' FROM '
         for table in args:
             for column in table.search:
-                self.payload += str(table.name) + '.' + str(column) + ', '
+                self.payload += str(table.tablename) + '.' + str(column) + ', '
 
-            frompayload += str(table.name)
+            frompayload += str(table.tablename)
             frompayload += ', '
         self.payload = self.payload.rstrip(', ')
         frompayload = frompayload.rstrip(', ')
@@ -114,12 +121,13 @@ class Select(SQLstring):
 
 
 if __name__ == '__main__':
-    # sql = Yhteys('roni')
+    sql = Yhteys('roni')
     airport = Airport('ident', 'name')
     country = Country('name')
-    print(country.name)
     aa = (Select(airport, country)
             .where(country.country == airport.country)
+            .AND(country.name == 'Finland')
             .limit(10))
-    # print(sql.hae(aa, monta=True))
     print(aa.payload)
+    print(sql.hae(aa, monta=False))
+
