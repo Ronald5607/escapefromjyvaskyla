@@ -22,30 +22,17 @@ class Screen:
 
     def flush(self):
         for i in range(self.height):
-            print('\n', end='')
             for j in range(self.width):
-                print(self.buffer[i + j], end='')
+                print(self.buffer[i * self.width + j], end='')
+            print('\n', end='')
 
 # metodi pyyhkii terminaali ruudun.
     def clear(self):
         os.system('cls' if os.name == 'nt' else 'clear')
-        self.buffer = ['1' for i in range(self.width * self.height)]
+        self.buffer = [' ' for i in range(self.width * self.height)]
 
     def set_prompt(self):
         ...
-
-    @staticmethod
-    def emptyline(n=1):
-        print('\n' * n, end='')
-
-    def whitespace(self, n):
-        if n < self.width:
-            print(' ' * n, end='')
-        else:
-            raise ValueError('liian monta tyhjää merkkiä (Screen.whitespace())')
-
-    def _line(self):
-        print('-' * self.width)
 
     def drawline(self, x, y, length):
         if x + length < self.width and y < self.height:
@@ -53,9 +40,6 @@ class Screen:
                 self.buffer[x + self.width * y + i] = '-'
         else:
             raise ValueError('yli rajojen.')
-
-    def _uline(self):
-        print('_' * self.width)
 
     def drawuline(self, x, y, length):
         for i in range(length):
@@ -66,10 +50,13 @@ if __name__ == '__main__':
 
     a = Screen()
     a.clear()
-    a.drawuline(10, 10, 10)
+    print(a.size, a.width, a.height)
+    a.drawuline(10, 10, 100)
     a.flush()
     input('a')
     a.clear()
+    a.drawline(5, 20, 20)
     a.get_size()
+    a.flush()
     input('b')
 
