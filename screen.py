@@ -8,7 +8,7 @@ class Screen:
     def __init__(self):
         self._size = shutil.get_terminal_size()
         self.width, self.height = self._size
-        self.buffer = ['1' for i in range(self.width * self.height)]
+        self.buffer = [' ' for i in range(self.width * self.height)]
 
 # @property dekoraattori tarkoittaa että metodin size voi kutsua ilman sulkuja "Screen.size"
     @property
@@ -26,11 +26,10 @@ class Screen:
             for j in range(self.width):
                 print(self.buffer[i + j], end='')
 
-
-# @staticmethod ei tarvitse objektia parametrinä, voi kutsua ilman objektia. metodi pyyhkii terminaali ruudun.
-    @staticmethod
-    def clear():
+# metodi pyyhkii terminaali ruudun.
+    def clear(self):
         os.system('cls' if os.name == 'nt' else 'clear')
+        self.buffer = ['1' for i in range(self.width * self.height)]
 
     def set_prompt(self):
         ...
@@ -45,24 +44,32 @@ class Screen:
         else:
             raise ValueError('liian monta tyhjää merkkiä (Screen.whitespace())')
 
-    def line(self):
+    def _line(self):
         print('-' * self.width)
 
-    def uline(self):
+    def drawline(self, x, y, length):
+        if x + length < self.width and y < self.height:
+            for i in range(length):
+                self.buffer[x + self.width * y + i] = '-'
+        else:
+            raise ValueError('yli rajojen.')
+
+    def _uline(self):
         print('_' * self.width)
+
+    def drawuline(self, x, y, length):
+        for i in range(length):
+            self.buffer[x + self.width * y + i] = '_'
 
 
 if __name__ == '__main__':
 
-    print(os.name)
     a = Screen()
     a.clear()
-    print(a.size)
+    a.drawuline(10, 10, 10)
     a.flush()
-    input('c')
+    input('a')
     a.clear()
     a.get_size()
-    a.uline()
-    print(a.size)
     input('b')
 
