@@ -8,6 +8,7 @@ class Screen:
     def __init__(self):
         self._size = shutil.get_terminal_size()
         self.width, self.height = self._size
+        self.buffer = ['1' for i in range(self.width * self.height)]
 
 # @property dekoraattori tarkoittaa että metodin size voi kutsua ilman sulkuja "Screen.size"
     @property
@@ -18,6 +19,13 @@ class Screen:
     def get_size(self):
         self._size = shutil.get_terminal_size()
         self.width, self.height = self._size
+
+    def flush(self):
+        for i in range(self.height):
+            print('\n', end='')
+            for j in range(self.width):
+                print(self.buffer[i + j], end='')
+
 
 # @staticmethod ei tarvitse objektia parametrinä, voi kutsua ilman objektia. metodi pyyhkii terminaali ruudun.
     @staticmethod
@@ -50,8 +58,7 @@ if __name__ == '__main__':
     a = Screen()
     a.clear()
     print(a.size)
-    a.line()
-    a.whitespace(5)
+    a.flush()
     input('c')
     a.clear()
     a.get_size()
