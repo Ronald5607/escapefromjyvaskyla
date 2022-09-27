@@ -125,9 +125,9 @@ if __name__ == '__main__':
     airport = Airport('ident', 'name')
     country = Country('name')
     aa = (Select(airport, country)
-            .where(country.country == airport.country)
-            .AND(country.name == 'Finland')
-            .limit(10))
+          .where(country.country == airport.country)
+          .AND(country.name == 'Finland')
+          .limit(10))
     print(aa.payload)
     print(sql.hae(aa, monta=False))
 
