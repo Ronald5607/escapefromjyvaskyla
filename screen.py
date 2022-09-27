@@ -28,20 +28,34 @@ class Screen:
         ...
 
     @staticmethod
-    def emptyline():
-        print('/n')
+    def emptyline(n=1):
+        print('\n' * n, end='')
+
+    def whitespace(self, n):
+        if n < self.width:
+            print(' ' * n, end='')
+        else:
+            raise ValueError('liian monta tyhjää merkkiä (Screen.whitespace())')
+
+    def line(self):
+        print('-' * self.width)
+
+    def uline(self):
+        print('_' * self.width)
 
 
 if __name__ == '__main__':
 
     print(os.name)
     a = Screen()
-    a.get_size()
     a.clear()
     print(a.size)
+    a.line()
+    a.whitespace(5)
     input('c')
     a.clear()
     a.get_size()
+    a.uline()
     print(a.size)
     input('b')
 
