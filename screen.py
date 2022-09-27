@@ -1,6 +1,7 @@
 import shutil
 import os
 
+# 2d pisteen sijainti 1d listassa on (x + y * width)
 
 class Screen:
     # hoitaa terminaalille tulostamisen.
