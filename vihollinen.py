@@ -16,6 +16,8 @@ class Vihollinen:
         self.siirrot = 0
         # heikkous riippuu tyypistä
         self.heikkous = []
+        # pistemäärä riippuu tyypistä
+        self.pistemaara = 0
 
     def siirron_lasku(self):
         if self.siirrot > 0:
