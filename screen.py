@@ -96,15 +96,14 @@ class Screen:
     def draw_text_box(self, x, y, *texts):
         i = 0
         max_width = 0
+        height = len(texts) + 2
         for text in texts:
             width = len(text) + 4
-            height = len(texts) + 2
             if width > max_width:
                 max_width = width
             if x + width < self.width and (y + height) < self.height:
                 self.draw_text(x + 2, y + 1 + i, text)
             i += 1
-        print(max_width)
         self.draw_box(x, y, max_width, height)
 
 
