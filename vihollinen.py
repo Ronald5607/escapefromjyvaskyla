@@ -15,7 +15,8 @@ class Vihollinen:
         self.heikkous = []
 
     def siirron_lasku(self):
-        self.siirrot -= 1
+        if self.siirrot > 0:
+            self.siirrot -= 1
 
 
 if __name__ == '__main__':
@@ -23,6 +24,3 @@ if __name__ == '__main__':
     # print(a.tyyppi)
     b = 123
     c = 'aaa'
-    print(type(b), type(c))
-    if type(b) == int:
-        print('aa')
