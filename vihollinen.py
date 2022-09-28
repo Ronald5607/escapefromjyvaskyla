@@ -9,18 +9,23 @@ class Vihollinen:
               'pitka': ('elevation_ft', 'aa'),
               'lyhyt': ('elevation_ft', 'bb')}
 
-    def __init__(self, tyyppimäärä, siirtomäärä):
+    def __init__(self, tyyppimaara):
+        # tyyppi käyttää metodia tyypin_todennäköisyys() määrittääkseen tyypin
         self.tyyppi = []
-        self.siirrot = siirtomäärä
+        # siirtojen määrä riippuu tyypistä
+        self.siirrot = 0
+        # heikkous riippuu tyypistä
         self.heikkous = []
 
     def siirron_lasku(self):
         if self.siirrot > 0:
             self.siirrot -= 1
 
+    def tyypin_todennakoisyys(self):
+        ...
+
 
 if __name__ == '__main__':
+    ...
     # a = Vihollinen(3, 7)
     # print(a.tyyppi)
-    b = 123
-    c = 'aaa'
