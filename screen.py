@@ -10,6 +10,10 @@ class Screen:
     def __init__(self):
         self._size = shutil.get_terminal_size()
         self.width, self.height = self._size
+        self.top_left = (0, 0)
+        self.top_right = (self.width, 0)
+        self.bottom_left = (0, self.height)
+        self.bottom_right = (self.width, self.height)
         self.buffer = [' ' for i in range(self.width * self.height)]
 
 # @property dekoraattori tarkoittaa että metodin size voi kutsua ilman sulkuja "Screen.size"
@@ -21,6 +25,10 @@ class Screen:
     def get_size(self):
         self._size = shutil.get_terminal_size()
         self.width, self.height = self._size
+        self.top_left = (0, 0)
+        self.top_right = (self.width, 0)
+        self.bottom_left = (0, self.height)
+        self.bottom_right = (self.width, self.height)
 
     def flush(self):
         for i in range(self.height):
