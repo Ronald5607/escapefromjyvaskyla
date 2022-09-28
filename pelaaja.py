@@ -2,7 +2,6 @@
 class pelaaja:
     def __init__(self):
         self.sijainti = 0
-        self.pisteet = 0
         self.käydyt = []
 
     def siirry(self):
