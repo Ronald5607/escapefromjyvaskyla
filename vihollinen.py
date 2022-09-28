@@ -1,27 +1,28 @@
 from random import randint
+
+
 class Vihollinen:
-    tyypit = {'iceman': 'kuuma',
-              'tuliukko': 'kylmä',
-              'pieni':'large_airport',
+    tyypit = {'iceman': ('longitude', 'cc'),
+              'tuliukko': ('longitude', 'dd'),
+              'pieni': 'large_airport',
               'iso': 'small_airport',
-              'pitka': 'elevation_ft',
-              'lyhyt': 'elevation_ft'}
+              'pitka': ('elevation_ft', 'aa'),
+              'lyhyt': ('elevation_ft', 'bb')}
 
     def __init__(self, tyyppimäärä, siirtomäärä):
-        self.tyyppi = [self.tyypit[randint(0,6)] for x in range(tyyppimäärä)]
+        self.tyyppi = []
         self.siirrot = siirtomäärä
+        self.heikkous = []
 
-    # tulostaa heikkouden tyypin mukaan
-    @property
-    def heikkous(self):
-        ...
+    def siirron_lasku(self):
+        self.siirrot -= 1
 
 
 if __name__ == '__main__':
-    a = Vihollinen(3, 7)
-    print(a.tyyppi)
+    # a = Vihollinen(3, 7)
+    # print(a.tyyppi)
     b = 123
     c = 'aaa'
     print(type(b), type(c))
-    if type(b) == type(c):
+    if type(b) == int:
         print('aa')
