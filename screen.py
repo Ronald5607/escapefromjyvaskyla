@@ -3,6 +3,7 @@ import os
 
 # 2d pisteen sijainti 1d listassa on (x + y * width)
 
+
 class Screen:
     # hoitaa terminaalille tulostamisen.
     # __init__() kutsutaan kun luodaan objekti Screen.
