@@ -7,13 +7,16 @@ class Peli:
         self.pelaaja = gamer
         self.viholliset = []
         self.pisteet = 0
+        self.havinnyt = False
 
     def lisaa_vihollinen(self):
-        ...
+        self.viholliset.append(vihollinen.Vihollinen)
 
     def lisaa_pisteita(self):
         ...
 
     def havio(self):
-        ...
+        for vihollinen in self.viholliset:
+            if vihollinen.siirrot <= 0:
+                self.havinnyt = True
 

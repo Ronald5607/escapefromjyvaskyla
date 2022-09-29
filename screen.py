@@ -7,13 +7,16 @@ import os
 class Screen:
     # hoitaa terminaalille tulostamisen.
     # __init__() kutsutaan kun luodaan objekti Screen.
-    def __init__(self):
+    def __init__(self, width, height):
+        self.set_size(width, height)
         self._size = shutil.get_terminal_size()
-        self.width, self.height = self._size
+        self.width = self._size[0]
+        self.height = self._size[1] - 1
         self.top_left = (0, 0)
         self.top_right = (self.width, 0)
         self.bottom_left = (0, self.height)
         self.bottom_right = (self.width, self.height)
+        self.center = (self.width // 2, self.height // 2)
         self.buffer = [' ' for i in range(self.width * self.height)]
 
 # @property dekoraattori tarkoittaa että metodin size voi kutsua ilman sulkuja "Screen.size"
@@ -29,6 +32,14 @@ class Screen:
         self.top_right = (self.width, 0)
         self.bottom_left = (0, self.height)
         self.bottom_right = (self.width, self.height)
+        self.center = (self.width // 2, self.height // 2)
+
+    def set_size(self, width, height):
+        if os.name == 'nt':
+            os.system(f'mode {width},{height}')
+        else:
+            os.system(f'resize -s {width} {height}')
+        self.get_size()
 
     def flush(self):
         for i in range(self.height):
@@ -106,14 +117,22 @@ class Screen:
             i += 1
         self.draw_box(x, y, max_width, height)
 
+    def draw_airplane(self, x, y):
+        if x + 13 < self.width and y + 3 < self.height:
+            self.draw_text(x + 4, y, '__!__')
+            self.draw_text(x, y + 1, '_____(_)_____')
+            self.draw_text(x + 3, y + 2, '!  !  !')
+        else:
+            raise ValueError('yli rajojen')
+
+
 
 if __name__ == '__main__':
 
-    a = Screen()
+    a = Screen(140, 40)
     a.clear()
-    print(a.size, a.width, a.height)
-    print(len(a.buffer))
     a.draw_text_box(10,10,'aa', 'bbbbbb', 'c')
+    a.draw_airplane(2, 2)
     a.flush()
     input('a')
     a.clear()
