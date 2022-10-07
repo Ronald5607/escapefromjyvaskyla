@@ -12,6 +12,10 @@ class Peli:
     def lisaa_vihollinen(self):
         self.viholliset.append(vihollinen.Vihollinen)
 
+    def tuhoa_vihollinen(self):
+        for vihollinen in self.viholliset:
+            ...
+
     def lisaa_pisteita(self):
         ...
 
