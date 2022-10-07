@@ -20,7 +20,7 @@ class Pelaaja:
         #pelaajan sijainti vaihtuu pelaajan valitseman numeron (indeksin) mukaan
         komento = int(inputti)
         self.sijainti = self.lahimmat[komento - 1][0]
-        self.lentokentan_nimi = self.sijainti = self.lahimmat[komento - 1][1]
+        self.lentokentan_nimi = self.lahimmat[komento - 1][1]
 
         self.hae_lahimmat()
 
@@ -58,8 +58,8 @@ class Pelaaja:
                 valittavat.append(asema)
         self.lahimmat = valittavat
 
-    def teleport(self):
-        ...
+    def hae_tiedot(self, icao):
+        kursori = self.yhteys.cursor()
+        kursori.execute(f"SELECT latitude_deg, longitude_deg, elevation_ft, type FROM airport WHERE ident='{icao}'")
+        return kursori.fetchone()
 
-    def kaukolento(self):
-        ...

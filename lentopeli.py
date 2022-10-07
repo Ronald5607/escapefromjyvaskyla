@@ -30,6 +30,8 @@ nimi = input()
 pelaaja = pelaaja.Pelaaja(nimi, yhteys)
 peli = peli.Peli(pelaaja)
 
+# vihollisten lisäys
+peli.lisaa_vihollinen(5)
 
 
 havinnyt = False
@@ -53,6 +55,17 @@ while not havinnyt:
                          pelaaja.lahimmat[3][1],
                          pelaaja.lahimmat[4][1])
 
+    peli.tuhoa_vihollinen(pelaaja.sijainti, pelaaja)
+    print(pelaaja.hae_tiedot(pelaaja.sijainti))
+    i = 0
+    for vihollinen in peli.viholliset:
+
+        vihollinen.siirron_lasku()
+        if vihollinen.siirrot == 1:
+            havinnyt = True
+        i += 1
+        ikkuna.draw_text(ikkuna.center[0] + 20, ikkuna.center[1] + i, vihollinen.tyyppi + str(vihollinen.siirrot))
+
     ikkuna.flush()
 
 
@@ -60,9 +73,7 @@ while not havinnyt:
     if komento == 'lopeta':
         havinnyt = True
     if komento == '1':
-        print(pelaaja.lahimmat)
         pelaaja.siirry(1)
-        print(pelaaja.lahimmat)
     if komento == '2':
         pelaaja.siirry(2)
     if komento == '3':
@@ -72,3 +83,6 @@ while not havinnyt:
     if komento == '5':
         pelaaja.siirry(5)
 
+ikkuna.clear()
+ikkuna.draw_text_box(ikkuna.center[0] - 13, ikkuna.center[1], 'HÄVISIT PELIN(ILKKA ANNA VITONEN)')
+ikkuna.flush()
