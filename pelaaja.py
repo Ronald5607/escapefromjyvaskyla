@@ -1,4 +1,6 @@
 from geopy import distance
+import math
+import mysql.connector
 
 
 class Pelaaja:
@@ -37,24 +39,58 @@ class Pelaaja:
 
         self.hae_lahimmat()
 
-    def suunta(self):
-        sql = f'SELECT longitude_deg FROM airport WHERE iso_country = "FI" ORDER BY RAND() LIMIT 2;'
-        kursori = yhteys.cursor()
-        kursori.execute(sql)
-        asema = kursori.fetchall()
+    def suunta(self, icao):
+        lat1, long1,a ,b = self.hae_tiedot(self.sijainti)
+        lat2, long2,a ,b = self.hae_tiedot(icao)
 
-        longitude1 = asema[0][0]
-        longitude2 = asema[1][0]
-        aa = float(asema[0])
-    def tallenna_pisteet(self, pisteet, ID):
+        x = lat2 - lat1
+        y = long2 - long1
+        brng = math.atan2(x, y)
+        brng = math.degrees(brng)
+
+        if brng < 0:
+            brng = brng + 360
+
+        print(brng)
+
+        if 22.5 < brng < 67.5:
+            return 'Koillisessa'
+        elif 67.5 <= brng <= 112.5:
+            return 'Pohjoisessa'
+        elif 112.5 < brng < 157.5:
+            return 'Luoteessa'
+        elif 157.5 <= brng <= 202.5:
+            return 'Lännessä'
+        elif 202.5 < brng < 247.5:
+            return 'Lounaassa'
+        elif 247.5 <= brng <= 292.5:
+            return 'Etelässä'
+        elif 292.5 < brng < 337.5:
+            return 'Kaakossa'
+        elif 337.5 <= brng <= 360 or 0 <= brng <= 22.5:
+            return 'Idässä'
+
+    def hae_top5(self):
+        sql = 'SELECT name, points FROM peli ORDER BY points DESC limit 5;'
         kursori = self.yhteys.cursor()
-        kursori.execute(f"INSERT INTO game (ID, screen_name, co2_consumed) VALUES ({ID}, {self.nimi}, {pisteet})")
+        kursori.execute(sql)
+        return kursori.fetchall()
+
+
+    def luo_taulu(self):
+        sql = '''
+        CREATE TABLE IF NOT EXISTS peli (
+    id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    name CHAR(30) NOT NULL,
+    points INT NOT NULL,
+    PRIMARY KEY (id))'''
+        kursori = self.yhteys.cursor()
+        kursori.execute(sql)
+    def tallenna_pisteet(self, pisteet):
+        kursori = self.yhteys.cursor()
+        kursori.execute(f"INSERT INTO peli (name, points) VALUES ('{self.nimi}', {pisteet})")
 
     def hae_lahimmat(self):
-        # lisää nykyisen sijainnin kiellettyjen listaan viimeiseksi ja poistaa ensimmäisen alkion
-        # self.viimeisimmat.append(self.sijainti)
-        # if len(self.viimeisimmat) == 10:
-        #     self.viimeisimmat.remove(self.viimeisimmat[0])
         # hakee nykyisen sijainnin koordinaatit
         kursori = self.yhteys.cursor()
         kursori.execute(f"SELECT latitude_deg, longitude_deg FROM airport WHERE ident='{self.sijainti}'")
@@ -72,7 +108,7 @@ class Pelaaja:
                 koordinaatit_uusi = (asema[2], asema[3])
                 etaisyys = (distance.great_circle(koordinaatit_nykyinen, koordinaatit_uusi).km)
                 etaisyydet.append(float(etaisyys))
-                asemat.append((asema[0], asema[1], asema[2], asema[3], etaisyys))
+                asemat.append([asema[0], asema[1], asema[2], asema[3], etaisyys])
         # etaisyydet sortataan pienimmästä suurimpaan
         etaisyydet.sort()
         valittavat = []
@@ -80,6 +116,7 @@ class Pelaaja:
             # hakee lentokentät, joiden etaisyys on top 5 pienimmistä, ja lisää ne listaan valittavat
             # jos etaisyys matchaa, niin kyseessä on tod näk sama lentokenttä. jos pelkää overlappia niin voidaan keksii tähän jotain muuta
             if asema[4] in etaisyydet[0:5]:
+                asema.append(self.suunta(asema[0]))
                 valittavat.append(asema)
         self.lahimmat = valittavat
 
@@ -88,3 +125,18 @@ class Pelaaja:
         kursori.execute(f"SELECT latitude_deg, longitude_deg, elevation_ft, type FROM airport WHERE ident='{icao}'")
         return kursori.fetchone()
 
+
+if __name__ == '__main__':
+    yhteys = mysql.connector.connect(
+        host='127.0.0.1',
+        port=3306,
+        database='flight_game',
+        user='root',
+        password='roni',
+        charset="utf8",
+        autocommit=True)
+
+    pelaaja = Pelaaja('aa', yhteys)
+
+    print(pelaaja.suunta('EFHK'))
+    print(pelaaja.lahimmat)

@@ -28,7 +28,8 @@ ikkuna = screen.Screen(150, 40)
 
 nimetty = False
 ikkuna.clear()
-ikkuna.draw_text_box(ikkuna.center[0], ikkuna.center[1], 'Anna nimi:', 'Max 10 kirjainta')
+
+ikkuna.draw_text_box(ikkuna.center[0] - len('Max 10 kirjainta')//2, ikkuna.center[1], 'Anna nimi:', 'Max 10 kirjainta')
 ikkuna.flush()
 while not nimetty:
     nimi = input()
@@ -54,11 +55,9 @@ while not havinnyt:
     ikkuna.clear()
 
 
-    ikkuna.draw_text_box(ikkuna.top_right[0] - 13, ikkuna.top_right[1], 'Pisteet:', str(peli.pisteet))
+    ikkuna.draw_text_box(ikkuna.top_right[0] - 13, ikkuna.top_right[1] + 1, 'Pisteet:', str(peli.pisteet))
 
-    ikkuna.draw_text_box(ikkuna.top_left[0] + 10, ikkuna.center[1], pelaaja.lentokentan_nimi)
-
-
+    ikkuna.draw_text_box(ikkuna.center[0] - len(pelaaja.lentokentan_nimi)//2, ikkuna.center[1], pelaaja.lentokentan_nimi)
 
     ikkuna.draw_text_box(ikkuna.top_left[0], ikkuna.bottom_left[1] - 10,
                          pelaaja.lahimmat[0][1],
@@ -100,8 +99,22 @@ while not havinnyt:
         else:
             ...
 
+
+pelaaja.luo_taulu()
+pelaaja.tallenna_pisteet(peli.pisteet)
+
 ikkuna.clear()
 ikkuna.draw_text_box(ikkuna.center[0] - 13, ikkuna.center[1], 'HÄVISIT PELIN(ILKKA ANNA VITONEN)')
+top5 = pelaaja.hae_top5()
+i = 0
+j = 0
+for pelaaja in top5:
+    ikkuna.draw_text(ikkuna.top_left[0], ikkuna.top_left[1] + 5 + j, str(i))
+    ikkuna.draw_text_box(ikkuna.center[0] + i, ikkuna.center[1] + 5, str(pelaaja[0]), str(pelaaja[1]))
+    i += max(len(str(pelaaja[0])), len(str(pelaaja[1]))) + 3
+    j += 1
+
 ikkuna.flush()
-aa = True
+
+
 
