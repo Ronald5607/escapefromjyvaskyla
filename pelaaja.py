@@ -24,6 +24,31 @@ class Pelaaja:
 
         self.hae_lahimmat()
 
+    def teleportti(self):
+        self.viimeisimmat.append(self.sijainti)
+        if len(self.viimeisimmat) == 10:
+            self.viimeisimmat.remove(self.viimeisimmat[0])
+
+        kursori = self.yhteys.cursor()
+        kursori.execute(f"SELECT ident, name FROM airport WHERE iso_country='FI' ORDER BY RAND () LIMIT 1")
+        tmp = kursori.fetchone()
+        self.sijainti = tmp[0]
+        self.lentokentan_nimi = tmp[1]
+
+        self.hae_lahimmat()
+
+    def suunta(self):
+        sql = f'SELECT longitude_deg FROM airport WHERE iso_country = "FI" ORDER BY RAND() LIMIT 2;'
+        kursori = yhteys.cursor()
+        kursori.execute(sql)
+        asema = kursori.fetchall()
+
+        longitude1 = asema[0][0]
+        longitude2 = asema[1][0]
+        aa = float(asema[0])
+    def tallenna_pisteet(self, pisteet, ID):
+        kursori = self.yhteys.cursor()
+        kursori.execute(f"INSERT INTO game (ID, screen_name, co2_consumed) VALUES ({ID}, {self.nimi}, {pisteet})")
 
     def hae_lahimmat(self):
         # lisää nykyisen sijainnin kiellettyjen listaan viimeiseksi ja poistaa ensimmäisen alkion

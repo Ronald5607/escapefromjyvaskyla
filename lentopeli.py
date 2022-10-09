@@ -2,6 +2,7 @@ import pelaaja
 import peli
 import screen
 import vihollinen
+from random import randint
 
 import mysql.connector
 from geopy import distance
@@ -20,13 +21,24 @@ yhteys = mysql.connector.connect(
          database='flight_game',
          user='root',
          password=salasana,
+         charset="utf8",
          autocommit=True)
 
 ikkuna = screen.Screen(150, 40)
+
+nimetty = False
 ikkuna.clear()
-ikkuna.draw_text_box(ikkuna.center[0], ikkuna.center[1], 'Anna nimi:')
+ikkuna.draw_text_box(ikkuna.center[0], ikkuna.center[1], 'Anna nimi:', 'Max 10 kirjainta')
 ikkuna.flush()
-nimi = input()
+while not nimetty:
+    nimi = input()
+    if len(nimi) <= 10:
+        nimetty = True
+    else:
+        ikkuna.clear()
+        ikkuna.draw_text_box(ikkuna.center[0], ikkuna.center[1],'Nimesi on liian pitkä', 'Anna nimi:')
+        ikkuna.flush()
+
 pelaaja = pelaaja.Pelaaja(nimi, yhteys)
 peli = peli.Peli(pelaaja)
 
@@ -42,7 +54,7 @@ while not havinnyt:
     ikkuna.clear()
 
 
-    ikkuna.draw_text_box(ikkuna.top_right[0] - 13, ikkuna.top_right[1], 'Pisteet:', str(5003))
+    ikkuna.draw_text_box(ikkuna.top_right[0] - 13, ikkuna.top_right[1], 'Pisteet:', str(peli.pisteet))
 
     ikkuna.draw_text_box(ikkuna.top_left[0] + 10, ikkuna.center[1], pelaaja.lentokentan_nimi)
 
@@ -68,21 +80,28 @@ while not havinnyt:
 
     ikkuna.flush()
 
-
     komento = input('mitä teet: ')
     if komento == 'lopeta':
         havinnyt = True
-    if komento == '1':
+    elif komento == '1':
         pelaaja.siirry(1)
-    if komento == '2':
+    elif komento == '2':
         pelaaja.siirry(2)
-    if komento == '3':
+    elif komento == '3':
         pelaaja.siirry(3)
-    if komento == '4':
+    elif komento == '4':
         pelaaja.siirry(4)
-    if komento == '5':
+    elif komento == '5':
         pelaaja.siirry(5)
+    elif komento == 'teleport':
+        if peli.pisteet > 200:
+            pelaaja.teleportti()
+            peli.pisteet -= 200
+        else:
+            ...
 
 ikkuna.clear()
 ikkuna.draw_text_box(ikkuna.center[0] - 13, ikkuna.center[1], 'HÄVISIT PELIN(ILKKA ANNA VITONEN)')
 ikkuna.flush()
+aa = True
+
