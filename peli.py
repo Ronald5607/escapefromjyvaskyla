@@ -16,17 +16,17 @@ class Peli:
     def tuhoa_vihollinen(self, sijainti, pelaaja):
         tiedot = pelaaja.hae_tiedot(sijainti)
         for vihollinen in self.viholliset:
-            if vihollinen.tyyppi == 'pieni':
+            if vihollinen.tyyppi == 'peukaloinen':
                 if tiedot[3] == 'large_airport':
                     self.viholliset.remove(vihollinen)
                     self.pisteet += vihollinen.pistemaara
                     break
-            elif vihollinen.tyyppi == 'iso':
+            elif vihollinen.tyyppi == 'jättiläinen':
                 if tiedot[3] == 'small_airport' or tiedot[3] == 'heliport':
                     self.viholliset.remove(vihollinen)
                     self.pisteet += vihollinen.pistemaara
                     break
-            elif vihollinen.tyyppi == 'iceman':
+            elif vihollinen.tyyppi == 'jäämies':
                 if tiedot[0] < 62.242603:
                     self.viholliset.remove(vihollinen)
                     self.pisteet += vihollinen.pistemaara
@@ -36,12 +36,12 @@ class Peli:
                     self.viholliset.remove(vihollinen)
                     self.pisteet += vihollinen.pistemaara
                     break
-            elif vihollinen.tyyppi == 'pitka':
+            elif vihollinen.tyyppi == 'hujoppi':
                 if tiedot[2] < 311:
                     self.viholliset.remove(vihollinen)
                     self.pisteet += vihollinen.pistemaara
                     break
-            elif vihollinen.tyyppi == 'lyhyt':
+            elif vihollinen.tyyppi == 'pätkä':
                 if tiedot[2] > 311:
                     self.viholliset.remove(vihollinen)
                     self.pisteet += vihollinen.pistemaara
