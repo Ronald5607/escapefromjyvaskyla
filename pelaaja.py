@@ -133,7 +133,6 @@ if __name__ == '__main__':
         database='flight_game',
         user='root',
         password='roni',
-        charset="utf8",
         autocommit=True)
 
     pelaaja = Pelaaja('aa', yhteys)

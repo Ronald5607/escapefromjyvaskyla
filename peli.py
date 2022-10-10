@@ -50,9 +50,3 @@ class Peli:
             self.lisaa_vihollinen(1)
 
 
-
-    def havio(self):
-        for vihollinen in self.viholliset:
-            if vihollinen.siirrot <= 0:
-                self.havinnyt = True
-

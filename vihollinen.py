@@ -2,12 +2,12 @@ from random import randint
 
 
 class Vihollinen:
-    tyypit = {'iceman': ('longitude', 'cc'),
+    tyypit = {'jäämies': ('longitude', 'cc'),
               'tuliukko': ('longitude', 'dd'),
-              'pieni': 'large_airport',
-              'iso': 'small_airport',
-              'pitka': ('elevation_ft', 'aa'),
-              'lyhyt': ('elevation_ft', 'bb')}
+              'peukaloinen': 'large_airport',
+              'jättiläinen': 'small_airport',
+              'hujoppi': ('elevation_ft', 'aa'),
+              'pätkä': ('elevation_ft', 'bb')}
 
     def __init__(self):
         # tyyppi käyttää metodia tyypin_todennäköisyys() määrittääkseen tyypin
@@ -31,47 +31,47 @@ class Vihollinen:
         rnd_num = randint(1, 1000)
 
         if rnd_num <= 5:
-            self.tyyppi = 'pieni'  # 0,5 %
+            self.tyyppi = 'peukaloinen'  # 0,5 %
         elif rnd_num <= 225:
-            self.tyyppi = 'iso'  # 22%
+            self.tyyppi = 'jättiläinen'  # 22%
         elif rnd_num <= 415:
-            self.tyyppi = 'iceman'  # 19,5%
+            self.tyyppi = 'jäämies'  # 19,5%
         elif rnd_num <= 610:
             self.tyyppi = 'tuliukko'  # 19%
         elif rnd_num <= 805:
-            self.tyyppi = 'pitka'  # 19,5%
+            self.tyyppi = 'hujoppi'  # 19,5%
         elif rnd_num <= 1000:
-            self.tyyppi = 'lyhyt'  # 19,5%
+            self.tyyppi = 'pätkä'  # 19,5%
 
     def anna_heikkous(self):
         self.heikkous = self.tyypit[self.tyyppi]
 
     def anna_siirrot(self):
-        if self.tyyppi == 'pieni':
-            self.siirrot = 20
-        elif self.tyyppi == 'iso':
-            self.siirrot = 10
-        elif self.tyyppi == 'iceman':
-            self.siirrot = 10
+        if self.tyyppi == 'peukaloinen':
+            self.siirrot = 41
+        elif self.tyyppi == 'jättiläinen':
+            self.siirrot = 16
+        elif self.tyyppi == 'jäämies':
+            self.siirrot = 16
         elif self.tyyppi == 'tuliukko':
-            self.siirrot = 10
-        elif self.tyyppi == 'pitka':
-            self.siirrot = 10
-        elif self.tyyppi == 'lyhyt':
-            self.siirrot = 10
+            self.siirrot = 11
+        elif self.tyyppi == 'hujoppi':
+            self.siirrot = 16
+        elif self.tyyppi == 'pätkä':
+            self.siirrot = 16
 
     def anna_pisteet(self):
-        if self.tyyppi == 'pieni':
+        if self.tyyppi == 'peukaloinen':
             self.pistemaara = 5000
-        elif self.tyyppi == 'iso':
+        elif self.tyyppi == 'jättiläinen':
             self.pistemaara = 100
-        elif self.tyyppi == 'iceman':
+        elif self.tyyppi == 'jäämies':
             self.pistemaara = 100
         elif self.tyyppi == 'tuliukko':
             self.pistemaara = 100
-        elif self.tyyppi == 'pitka':
+        elif self.tyyppi == 'hujoppi':
             self.pistemaara = 100
-        elif self.tyyppi == 'lyhyt':
+        elif self.tyyppi == 'pätkä':
             self.pistemaara = 100
 
 
