@@ -43,6 +43,7 @@ while not nimetty:
 vastattu = False
 while not vastattu:
     ikkuna.clear()
+    ikkuna.draw_text_box(ikkuna.top_left[0] + 60, ikkuna.top_left[1] + 3, 'Escape from Jyväskylä')
     ikkuna.draw_text_box(ikkuna.top_left[0] + 22, ikkuna.top_left[1] + 5,
                          f'Terve {nimi}, sinulle on tarjottu tehtäväksi pitää Projekti Maailman Pelastaja turvassa.',
                          'Kohdetta pidetään piilossa Jyväskylän tukikohdassa, mutta tuhonhimoiset kapitalistit ovat',

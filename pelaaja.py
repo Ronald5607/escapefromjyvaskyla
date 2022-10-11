@@ -40,8 +40,8 @@ class Pelaaja:
         self.hae_lahimmat()
 
     def suunta(self, icao):
-        lat1, long1,a ,b = self.hae_tiedot(self.sijainti)
-        lat2, long2,a ,b = self.hae_tiedot(icao)
+        lat1, long1, a, b = self.hae_tiedot(self.sijainti)
+        lat2, long2, a, b = self.hae_tiedot(icao)
 
         x = lat2 - lat1
         y = long2 - long1
@@ -76,7 +76,6 @@ class Pelaaja:
         kursori.execute(sql)
         return kursori.fetchall()
 
-
     def luo_taulu(self):
         sql = '''
         CREATE TABLE IF NOT EXISTS peli (
@@ -86,6 +85,7 @@ class Pelaaja:
     PRIMARY KEY (id))'''
         kursori = self.yhteys.cursor()
         kursori.execute(sql)
+
     def tallenna_pisteet(self, pisteet):
         kursori = self.yhteys.cursor()
         kursori.execute(f"INSERT INTO peli (name, points) VALUES ('{self.nimi}', {pisteet})")
