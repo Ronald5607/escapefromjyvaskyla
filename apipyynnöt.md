@@ -1,4 +1,4 @@
-##verkkosivulta -> taustapalvelin:
+## verkkosivulta -> taustapalvelin:
 
 pelaajan nimi ja id (
     pelaaja_nimi: string;
@@ -11,6 +11,7 @@ lentokoneen sijainti (
 
 kauppa tapahtuma (
     teleportin_osto: boolean;
+    poltto_aineen_oston_määrä: int;
 )
 
 
