@@ -1,0 +1,27 @@
+h1 {
+    text-align: center;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 10rem;
+}
+
+input[type=text] {
+    padding: .5rem;
+    margin: .5rem;
+    font-size: large;
+    box-shadow: 0 10px 105px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    text-align: center;
+}
+
+input[type=submit] {
+    padding: .5rem;
+    border-radius: 30px;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
