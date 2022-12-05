@@ -1,12 +1,8 @@
 import pelaaja
 import peli
 import screen
-import vihollinen
-from random import randint
 
 import mysql.connector
-from geopy import distance
-
 
 ikkuna = screen.Screen(180, 50)
 ikkuna.clear()

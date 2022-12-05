@@ -1,4 +1,3 @@
-import pelaaja
 import vihollinen
 
 
