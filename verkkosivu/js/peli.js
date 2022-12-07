@@ -49,15 +49,23 @@ function lentokentta_layer(lentokentat) {
         });
         lentokenttalayer.push(markkeri);
     }
+    console.log(lentokenttalayer)
     return L.layerGroup(lentokenttalayer);
 };
 
 function kaydyt_lentokentat(sijainti, kaydyt) {
+    const sininen = new L.Icon({
+        iconUrl: 'sininenmarker.png',
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
+    });
     const kentat = kaydyt.getLayers();
     if (kentat.length > 0 && kentat.length > 9) kentat.shift();
-    kentat.push(L.marker([sijainti.latitude, sijainti.longitude]));
+    kentat.push(L.marker([sijainti.latitude, sijainti.longitude], {
+        icon: sininen
+    }));
+    console.log(kentat);
     return L.layerGroup(kentat);
-
 }
 
 function piirra_lentokentat(lentokenttalayer, kaydyt) {
@@ -106,10 +114,6 @@ let a = [
     {
         latitude: 62.2426,
         longitude: 25.7473
-    },
-    {
-        latitude: 62.2426,
-        longitude: 25.7473
     }
 ]
 const layeri = lentokentta_layer(a);
@@ -117,4 +121,4 @@ let kaydyt = layeri;
 layeri.addTo(map);
 
 kaydyt = kaydyt_lentokentat({latitude: 55, longitude: 43}, kaydyt);
-console.log(kaydyt.getLayers());
+kaydyt.addTo(map);
