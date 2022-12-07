@@ -16,7 +16,7 @@ h1 {
 input[type=text] {
     padding: .5rem;
     margin: .5rem;
-    font-size: medium;
+    font-size: large;
     box-shadow: 0 10px 105px 4px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
     text-align: center;
@@ -25,11 +25,7 @@ input[type=text] {
 input[type=submit] {
     padding: .5rem;
     border-radius: 30px;
+    display: flex;
     margin: auto;
-}
-
-.ei {
-    padding: .5rem;
-    border-radius: 30px;
-    margin: auto;
+    justify-content: center;
 }
