@@ -25,12 +25,20 @@ input[type=text] {
 input[type=submit] {
     padding: .5rem;
     border-radius: 30px;
-    display: flex;
-    margin: auto;
     justify-content: center;
 }
 
 input[type=submit]:hover {
-    cursor: pointer;
     background-color: aquamarine;
 }
+
+.ei {
+    padding: .5rem;
+    border-radius: 30px;
+    justify-content: center;
+}
+
+.ei:hover {
+    background-color: aquamarine;
+}
+
