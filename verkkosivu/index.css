@@ -7,7 +7,6 @@ h1 {
 }
 
 .container {
-    width: 80%;
     margin: auto;
     text-align: center;
     padding-top: 5rem;
@@ -42,3 +41,14 @@ input[type=submit]:hover {
     background-color: aquamarine;
 }
 
+.animation {
+    width: 0;
+    height: 200px;
+    position: relative;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+}
