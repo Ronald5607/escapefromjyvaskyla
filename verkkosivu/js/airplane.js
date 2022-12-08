@@ -37,8 +37,6 @@ class Airplane {
 
     initairplane() {
     
-    const zoom = map.getZoom();
-    
     /* this.rotation = 1; */
 
     this.img.addEventListener("load", () => {
@@ -51,11 +49,15 @@ class Airplane {
     }
 
     rotateairplane() {
-
         this.ctx.translate(100, 100);
         this.ctx.rotate(this.rotation);
         this.ctx.translate(-100, -100);
-
+    }
+    
+    scaleairplane() {
+        this.ctx.translate(100, 100);
+        this.ctx.scale(0.3, 0.3);
+        this.ctx.translate(-100, -100);
     }
 
     draw() {
@@ -63,6 +65,7 @@ class Airplane {
         this.ctx.save();
         this.ctx.translate(this.x, this.y);
         this.rotateairplane();
+        this.scaleairplane();
         this.ctx.drawImage(this.img, 0, 0);
         this.ctx.restore();
         window.requestAnimationFrame(() => {this.draw()});
