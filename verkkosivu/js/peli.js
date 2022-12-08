@@ -14,12 +14,19 @@ let kaydyt = layeri;
 layeri.addTo(map);
 
 kaydyt = kaydyt_lentokentat({latitude: 55, longitude: 43}, kaydyt);
+for (let kayty of kaydyt.getLayers()) {
+    kayty.addEventListener('mouseover', () => {
+        const latlon = kayty.getLatLng();
+        const direction = -Math.atan2(lentokone.lon - latlon.lng, lentokone.lat - latlon.lat);
+        lentokone.rotation = direction;
+    });
+}
 kaydyt.addTo(map);
 
 lentokone.initairplane();
 
 map.addEventListener('move',() => { lentokone.setcanvascoordinates(); });
-lentokone.rotation = 0.5;
+lentokone.rotation = 2;
 window.requestAnimationFrame(() => {lentokone.draw()});
 
 

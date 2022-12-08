@@ -48,6 +48,11 @@ class Airplane {
 
     }
 
+    changerotation(target, t) {
+        let delta = this.rotation - target;
+        this.rotation = this.rotation + delta*t;
+    }
+
     rotateairplane() {
         this.ctx.translate(100, 100);
         this.ctx.rotate(this.rotation);

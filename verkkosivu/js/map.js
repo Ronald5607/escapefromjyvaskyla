@@ -31,9 +31,10 @@ function kaydyt_lentokentat(sijainti, kaydyt) {
     });
     const kentat = kaydyt.getLayers();
     if (kentat.length > 0 && kentat.length > 9) kentat.shift();
-    kentat.push(L.marker([sijainti.latitude, sijainti.longitude], {
+    const markkeri = L.marker([sijainti.latitude, sijainti.longitude], {
         icon: sininen
-    }));
+    });
+    kentat.push(markkeri);
     return L.layerGroup(kentat);
 };
 
