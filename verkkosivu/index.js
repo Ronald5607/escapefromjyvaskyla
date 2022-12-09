@@ -25,31 +25,37 @@ const form = document.querySelector('form');
 
 form.addEventListener('submit', function(event) {
   const name = document.querySelector('input[type=text]');
-  if (name.value==="" || name.value===null) {
-    alert("Valitse itsellesi käyttäjänimi");
-    event.preventDefault()
-  }
-  else {
-    const dict_name = {'name': name.value};
-    fetch('http://127.0.0.1:3000/name',
-      {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(dict_name),
-      }).then(res => {
-    if (res.ok) {
-      return res.json();
+  if (name.value === '' || name.value === null) {
+    alert('Valitse itsellesi käyttäjänimi');
+    event.preventDefault();
+  } else {
+    let result = confirm(`Oletko valmis, ${name.value}?`);
+    if (result === false) {
+      alert('nössö');
+      event.preventDefault();
     } else {
-      alert('something is wrong');
+      const dict_name = {'name': name.value};
+      fetch('http://127.0.0.1:3000/name',
+          {
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json',
+              'Accept': 'application/json',
+            },
+            body: JSON.stringify(dict_name),
+          }).then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          alert('something is wrong');
+        }
+      }).then(jsonResponse => {
+            console.log(jsonResponse);
+          },
+      ).catch((err) => console.error(err));
     }
-    }).then(jsonResponse => {
-        console.log(jsonResponse);
-      },
-    ).catch((err) => console.error(err));
-  }}) //noi sulut tossa on oudosti imo mut se valitti mulle niistä jos laitoin eri taval
+  }
+})
 
 
 
