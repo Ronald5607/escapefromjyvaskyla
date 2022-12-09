@@ -25,9 +25,13 @@ const form = document.querySelector('form');
 
 form.addEventListener('submit', function(event) {
   const name = document.querySelector('input[type=text]');
-  const dict_name = {'name': name.value};
-  alert(name.value);
-  fetch('http://127.0.0.1:3000/name',
+  if (name.value==="" || name.value===null) {
+    alert("Valitse itsellesi käyttäjänimi");
+    event.preventDefault()
+  }
+  else {
+    const dict_name = {'name': name.value};
+    fetch('http://127.0.0.1:3000/name',
       {
         method: 'POST',
         headers: {
@@ -41,9 +45,11 @@ form.addEventListener('submit', function(event) {
     } else {
       alert('something is wrong');
     }
-  }).then(jsonResponse => {
+    }).then(jsonResponse => {
         console.log(jsonResponse);
       },
-  ).catch((err) => console.error(err));
-});
+    ).catch((err) => console.error(err));
+  }}) //noi sulut tossa on oudosti imo mut se valitti mulle niistä jos laitoin eri taval
+
+
 
