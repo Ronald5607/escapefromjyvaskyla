@@ -1,8 +1,8 @@
 import mysql.connector
 
 
-apikey = "" #testausta varten voi lisätä tähän apikeyn
-salasana = "" #testausta varten voi lisätä tähän salasanan
+apikey = "cd6c905dd4cd2cdaf0b0f583cb078ec7" #testausta varten voi lisätä tähän apikeyn
+salasana = "roni" #testausta varten voi lisätä tähän salasanan
 tietokanta = 'flight_game'
 käyttäjä = 'root'
 

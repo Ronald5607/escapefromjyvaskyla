@@ -35,7 +35,7 @@ form.addEventListener('submit', function(event) {
       event.preventDefault();
     } else {
       const dict_name = {'name': name.value};
-      fetch('http://127.0.0.1:3000/name',
+      fetch('http://127.0.0.1:8888/name',
           {
             method: 'POST',
             headers: {

@@ -3,6 +3,8 @@ from flask_cors import CORS
 from database import Database
 import requests
 import json
+from pelaaja import Pelaaja
+from peli import Peli
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -40,6 +42,50 @@ def get_name():
     print(player_name) #tässä pitäis tulostua pythoniin pelaajan nimi
     #tässä voi tehdä nyt jotain sillä nimellä niiku vaik inserttaa se databaseen
     return player_name
+
+
+@app.route('/siirto')
+def siirto():
+    jsoni = request.get_json()
+    icao = jsoni['ICAO']
+    iidee = jsoni['ID']
+    kaydyt = jsoni['kaydyt']
+
+    sql = f"select screen_name from player where ID='{iidee}'"
+    kursori = db.get_connection().cursor()
+    kursori.execute(sql)
+    tulos = kursori.fetchone()
+
+
+    pelaaja = Pelaaja(tulos[0], db)
+    pelaaja.viimeisimmat = kaydyt
+    pelaaja.siirry(icao)
+    pelaaja.hae_lahimmat()
+
+    peli = Peli()
+    peli.hae_viholliset()
+    peli.hae_hp()
+    peli.hae_polttoaine()
+
+    for vihollinen in peli.viholliset:
+        vihollinen.siirron_lasku()
+        if vihollinen.siirrot == 0:
+            peli.hp -= 1
+        
+    peli.tuhoa_vihollinen()
+    peli.polttoaine -= 10
+
+    vastaus = {
+    'lahimmat': pelaaja.lahimmat,
+    'viholliset': peli.tee_vihollislista(),
+    'polttoaine': peli.hae_polttoaine,
+    'hp': peli.hp
+}
+
+
+
+
+
 
 
 @app.errorhandler(404)
