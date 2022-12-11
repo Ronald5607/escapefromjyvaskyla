@@ -11,13 +11,15 @@ class Vihollinen:
 
     def __init__(self, tyyppi, siirrot):
         # tyyppi käyttää metodia tyypin_todennäköisyys() määrittääkseen tyypin
-        self.tyyppi = 0
+        self.tyyppi = tyyppi
         # siirtojen määrä riippuu tyypistä
-        self.siirrot = 0
+        self.siirrot = siirrot
         # heikkous riippuu tyypistä
         self.heikkous = 0
         self.anna_heikkous()
         # pistemäärä riippuu tyypistä
+        self.pistemaara = 0
+        self.anna_pisteet()
 
     def siirron_lasku(self):
         if self.siirrot > 0:

@@ -1,12 +1,15 @@
 'use strict';
 
 
-async function siirto(ICAO) {
+async function siirto(ICAO, id, kaydyt) {
 
-    const siirto_dict = {'ICAO': ICAO};
 
-    const vastaus = await fetch('http://127.0.0.1:3000/siirto?siirto=' + ICAO);
+    const vastaus = await fetch('http://127.0.0.1:8888/siirto?ICAO=' + ICAO + '&ID=' + id + '&kaydyt=' + kaydyt);
 
-    const vastaus_json = await vastaus.json();
+    return await vastaus.json();
         
 }
+
+
+
+

@@ -51,7 +51,6 @@ class Pelaaja:
         if brng < 0:
             brng = brng + 360
 
-        print(brng)
 
         if 22.5 < brng < 67.5:
             return 'Koillisessa'

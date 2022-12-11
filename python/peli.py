@@ -11,6 +11,15 @@ class Peli:
         self.hp = 3
         self.havinnyt = False
 
+    def tietokanta_siirto(self):
+        sql = f"update player set points={self.pisteet}, hp={self.hp}, fuel={self.polttoaine} where ID={self.gamerID}"
+        kursori = self.yhteys.cursor()
+        kursori.execute(sql)
+
+        sql = f"update enemy, player set e1='{self.viholliset[0].tyyppi}',e2='{self.viholliset[1].tyyppi}',e3='{self.viholliset[2].tyyppi}',e4='{self.viholliset[3].tyyppi}',e5='{self.viholliset[4].tyyppi}', e1_moves={self.viholliset[0].siirrot},e2_moves={self.viholliset[1].siirrot},e3_moves={self.viholliset[2].siirrot},e4_moves={self.viholliset[3].siirrot},e5_moves={self.viholliset[4].siirrot} where player.ID='{self.gamerID}' AND enemy.enemy_ID=player.ID"
+        kursori.execute(sql)
+
+
     def tee_vihollislista(self):
         tmp = []
         for vihollinen in self.viholliset:
@@ -30,6 +39,7 @@ class Peli:
         kursori = self.yhteys.cursor()
         kursori.execute(sql)
         tmp = kursori.fetchone()
+        print(tmp[0])
         self.polttoaine = tmp[0]
 
     def hae_hp(self):
