@@ -1,6 +1,6 @@
 'use strict';
 
-const lentokone = new Airplane('kuvat/lentsikka.png', ctx, map);
+const lentokone = new Airplane('kuvat/sus-plane-top.png', ctx, map);
 
 const lentokentat = [
     {
