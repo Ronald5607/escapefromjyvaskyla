@@ -20,3 +20,18 @@
     pointer-events: none;
     z-index: 9999;
 }
+
+#hp {
+    /*idk*/
+  margin-left: 70vw;
+  width: fit-content;
+  display: flex;
+  justify-content: space-evenly;
+  border-radius: 2rem;
+  background-color: grey;
+}
+
+#hp img {
+    width: 3rem;
+    padding: .4rem;
+}
