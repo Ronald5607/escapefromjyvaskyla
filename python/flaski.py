@@ -5,6 +5,7 @@ import requests
 import json
 from pelaaja import Pelaaja
 from peli import Peli
+from vihollinen import Vihollinen
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -33,14 +34,89 @@ def weather(icao):
         vastaus = weather["clouds"]["all"]
     return vastaus
 
-@app.route("/name", methods=["POST"])
+@app.route("/name", methods=['POST'])
 #hakee index sivulta javascriptillä lähetetyn pelaajan nimen
 #ei hyväksyny ku koitin pyörittää tätä laittamal app.runiin localhostin mut ilman hostin määritystä toimii
 def get_name():
-    dict_name = request.get_json()
-    player_name = dict_name["name"]
-    
-    return player_name
+    dict_name = request.args
+    player_name = dict_name.get('name')
+
+        
+
+    sql = f"insert into player (screen_name,points,hp,fuel) values ('{player_name}',0,3,100)"
+    kursori = db.connection.cursor(buffered=True)
+    kursori.execute(sql)
+    sql = f"select ID from player where screen_name='{player_name}'"
+    kursori.execute(sql)
+    iidee = kursori.fetchone()[0]
+
+    uusi_peli = Peli(iidee, db.connection)
+    uusi_peli.lisaa_vihollinen(5)
+    sql = f"insert into enemy (e1,e2,e3,e4,e5,e1_moves,e2_moves,e3_moves,e4_moves,e5_moves) values ('{uusi_peli.viholliset[0].tyyppi}','{uusi_peli.viholliset[1].tyyppi}','{uusi_peli.viholliset[2].tyyppi}','{uusi_peli.viholliset[3].tyyppi}','{uusi_peli.viholliset[4].tyyppi}',{uusi_peli.viholliset[0].siirrot},{uusi_peli.viholliset[1].siirrot},{uusi_peli.viholliset[2].siirrot},{uusi_peli.viholliset[3].siirrot},{uusi_peli.viholliset[4].siirrot})"
+    kursori.execute(sql)
+
+    lahimmat = [
+        [
+            "EFHA",
+            "Halli Airport",
+            61.856,
+            24.7867,
+            76.15986038241324,
+            "Lounaassa",
+            100
+        ],
+        [
+            "EFHI",
+            "HaapamÃ¤ki Airfield",
+            62.2552,
+            24.3495,
+            70.47034696457746,
+            "Lännessä",
+            100
+        ],
+        [
+            "EFJV",
+            "Central Finland Central Hospital Heliport",
+            62.2304,
+            25.7115,
+            18.881154808780686,
+            "Etelässä",
+            100
+        ],
+        [
+            "EFPK",
+            "PieksÃ¤mÃ¤ki Airfield",
+            62.2647,
+            27.0028,
+            70.00990795049564,
+            "Idässä",
+            100
+        ],
+        [
+            "FI-0005",
+            "MÃ¤nttÃ¤ - Sassi Airfield",
+            62.028,
+            24.664,
+            66.86299173741165,
+            "Lännessä",
+            100
+        ]
+    ]
+
+    uusi_peli.hp = 3
+    uusi_peli.polttoaine = 100
+    uusi_peli.pisteet = 0
+    uusi_peli.tietokanta_siirto()
+
+    viholliset = uusi_peli.tee_vihollislista()
+
+    vastaus = {
+        'lahimmat': lahimmat,
+        'ID': iidee,
+        'viholliset': viholliset
+    }
+
+    return vastaus
 
 
 @app.route('/siirto')
