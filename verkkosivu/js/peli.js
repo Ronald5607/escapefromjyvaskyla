@@ -24,9 +24,8 @@ for (let kayty of kaydyt.getLayers()) {
 kaydyt.addTo(map);
 
 lentokone.initairplane();
-
 map.addEventListener('move',() => { lentokone.setcanvascoordinates(); });
-lentokone.rotation = 2;
+
 window.requestAnimationFrame(() => {lentokone.draw()});
 
 
