@@ -2,6 +2,11 @@
     font-family: "Comic Sans MS", serif;
 }
 
+body {
+    background-image: url("kuvat/Jyväskylä_Airport_1.png");
+    background-size: 100%;
+}
+
 h1 {
     text-align: center;
 }
