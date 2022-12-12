@@ -142,6 +142,7 @@ def siirto():
     pelaaja.hae_lahimmat()
     for lahin in pelaaja.lahimmat:
         lahin.append(weather(lahin[0]))
+        lahin.append(pelaaja.hae_tiedot(lahin[0])[2])
 
     peli = Peli(iidee, db.connection)
     peli.hae_viholliset()
@@ -163,7 +164,8 @@ def siirto():
     'lahimmat': pelaaja.lahimmat,
     'viholliset': peli.tee_vihollislista(),
     'polttoaine': peli.polttoaine,
-    'hp': peli.hp
+    'hp': peli.hp,
+    'pisteet': peli.pisteet
     }
 
     return vastaus

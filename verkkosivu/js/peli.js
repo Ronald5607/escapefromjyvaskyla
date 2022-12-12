@@ -5,13 +5,14 @@ let hp = 3;
 let polttoaine = 100;
 let pisteet = 0;
 let kaydyt = ['EFJY'];
-let kaydytlayer = [L.marker([62.4034, 25.6810])];
+let kaydytlayer = [];
 kaydytlayer = L.layerGroup(kaydytlayer);
 let lahimmatlayer = 0;
 let lahimmatlentokentat = [];
+let vanha_sijainti = [62.4034, 25.6810];
 
 function stringifykaydyt(kaydyt) {
-  kaydyt.reduce((a, b) => {return a + ',' + b})
+  return kaydyt.reduce((a, b) => {return a + ',' + b})
 }
 
 const alustus = alotus();
@@ -21,22 +22,33 @@ alustus.then((value) => {
   lahimmatlayer.addTo(map);
 })
 
-console.log(lahimmatlentokentat)
+
 
 const aa = () => {
-  const uusi_sijainti = 'EFHK';
-    const lentokentat = siirto(uusi_sijainti, 1, stringifykaydyt(kaydyt));
+  const uusi_sijainti = [61.856, 24.7867];
+  lentokone.lat = uusi_sijainti[0];
+  lentokone.lon = uusi_sijainti[1];
+  const uusi_icao = 'EFHA';
+    const lentokentat = siirto(uusi_icao, 1, stringifykaydyt(kaydyt));
     lentokentat.then((value) => {
+      pisteet = value.pisteet;
+      polttoaine = value.polttoaine;
+      hp = value.hp;
+
+      kaydyt = kaydyt_lentokentat_array(uusi_icao, kaydyt);
+      kaydytlayer = kaydyt_lentokentat(vanha_sijainti, kaydytlayer);
+      kaydytlayer.addTo(map);
+      vanha_sijainti = uusi_sijainti;
+
+    lahimmatlayer.remove();
     lahimmatlayer = lentokentta_layer(value.lahimmat);
     lahimmatlayer.addTo(map);
+    console.log(lahimmatlayer.getLayers())
 
-    kaydyt = kaydyt_lentokentat_array(uusi_sijainti, kaydyt);
-    kaydytlayer = kaydyt_lentokentat(uusi_sijainti, kaydytlayer);
-    kaydytlayer.addTo(map);
 })
 }
 
-aa();
+aa()
 
 
 
@@ -47,18 +59,5 @@ map.addEventListener('move',() => { lentokone.setcanvascoordinates(); });
 window.requestAnimationFrame(() => {lentokone.draw()});
 
 
-//sydämet screenillä
-const lives = 2; //täs kuuluis olla se kun se hakee pelaajan elämät (numero) databasest?
-for (let i=0; i<lives; i++) {
-  const life = document.createElement("p");
-  life.innerHTML = "<img src='/verkkosivu/kuvat/life.png' alt='nolife' >"
-  document.querySelector("#hp").appendChild(life);
-}
-const noLives=3-lives
-for (let i=0; i<noLives; i++) {
-  const nolife = document.createElement("p");
-  nolife.innerHTML = "<img src='/verkkosivu/kuvat/nolife.png' alt='nolife' >"
-  document.querySelector("#hp").appendChild(nolife);
-}
 
 
