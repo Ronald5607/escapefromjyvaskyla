@@ -1,3 +1,7 @@
+body {
+    background-color: slategray;
+}
+
 #game {
     display: flex;
     position: absolute;
@@ -21,20 +25,35 @@
     z-index: 9999;
 }
 
-#hp {
-    /*idk*/
-  margin-left: 70vw;
+#yläkulma {
+    margin-left: 800px;
+    position: sticky;
+    display: flex;
+    justify-content: right;
+    height: 5rem;
+    gap: 1rem;
+    top: 0px;
+    background-color: navy;
+}
+
+#pisteet {
+    padding: 1rem;
   width: fit-content;
-  display: flex;
-  justify-content: space-evenly;
   border-radius: 2rem;
-  background-color: grey;
+  background-color: darkgrey;
 }
 
 #polttoaine {
     /*idk*/
-  margin-left: 70vw;
   padding: 1rem;
+  width: fit-content;
+  display: flex;
+  border-radius: 2rem;
+  background-color: darkgrey;
+}
+
+#hp {
+    /*idk*/
   width: fit-content;
   display: flex;
   justify-content: space-evenly;
@@ -47,9 +66,28 @@
     padding: .4rem;
 }
 
+#airports {
+    margin-left: 800px;
+    padding: 1rem;
+    grid-column-gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 0.5rem;
+    justify-content: left;
+}
+
+#airports div {
+    padding: 1rem;
+    border-radius: 2rem;
+    border-style: ridge;
+    border-color: black;
+    background-color: grey;
+}
+
 #viholliset {
     position: fixed;
     width: 100vw;
+    height: 14rem;
     bottom: 0px;
     padding: 1rem;
     display: flex;
