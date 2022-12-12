@@ -35,3 +35,30 @@
     width: 3rem;
     padding: .4rem;
 }
+
+#viholliset {
+    position: fixed;
+    width: 100vw;
+    bottom: 0px;
+    padding: 1rem;
+    display: flex;
+  justify-content: space-evenly;
+  gap: 1rem;
+    background-color: darkgray;
+}
+
+#viholliset div {
+    margin: auto;
+    padding: 1rem;
+    border-radius: 2rem;
+    border-style: ridge;
+    border-color: black;
+}
+
+#viholliset img {
+    height: 3rem;
+}
+
+.iceman {
+    background-color: cadetblue;
+}
