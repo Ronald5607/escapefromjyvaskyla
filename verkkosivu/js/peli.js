@@ -1,6 +1,7 @@
 'use strict';
 
 const lentokone = new Airplane('kuvat/sus-plane-top.png', ctx, map);
+let ID = 0;
 let hp = 3;
 let polttoaine = 100;
 let pisteet = 0;
@@ -17,6 +18,7 @@ function stringifykaydyt(kaydyt) {
 
 const alustus = alotus();
 alustus.then((value) => {
+  ID = value.ID;
   lahimmatlentokentat = value.lahimmat;
   lahimmatlayer = lentokentta_layer(value.lahimmat);
   lahimmatlayer.addTo(map);
@@ -29,11 +31,14 @@ const aa = () => {
   lentokone.lat = uusi_sijainti[0];
   lentokone.lon = uusi_sijainti[1];
   const uusi_icao = 'EFHA';
-    const lentokentat = siirto(uusi_icao, 1, stringifykaydyt(kaydyt));
+    const lentokentat = siirto(uusi_icao, ID, stringifykaydyt(kaydyt));
     lentokentat.then((value) => {
       pisteet = value.pisteet;
       polttoaine = value.polttoaine;
       hp = value.hp;
+
+      polttis.innerText = `Polttoaine: ${polttoaine}%`;
+      document.querySelector("#polttoaine").appendChild(polttis);
 
       kaydyt = kaydyt_lentokentat_array(uusi_icao, kaydyt);
       kaydytlayer = kaydyt_lentokentat(vanha_sijainti, kaydytlayer);

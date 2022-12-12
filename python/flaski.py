@@ -35,14 +35,13 @@ def weather(icao):
         vastaus = weather["clouds"]["all"]
     return vastaus
 
-@app.route("/name", methods=['POST'])
+@app.route("/name")
 #hakee index sivulta javascriptillä lähetetyn pelaajan nimen
 #ei hyväksyny ku koitin pyörittää tätä laittamal app.runiin localhostin mut ilman hostin määritystä toimii
 def get_name():
     db = Database()
     dict_name = request.args
     player_name = dict_name.get('name')
-
         
 
     sql = f"insert into player (screen_name,points,hp,fuel) values ('{player_name}',0,3,100)"
@@ -111,7 +110,7 @@ def get_name():
     uusi_peli.tietokanta_siirto()
 
     viholliset = uusi_peli.tee_vihollislista()
-
+    print(iidee)
     vastaus = {
         'lahimmat': lahimmat,
         'ID': iidee,
@@ -129,7 +128,7 @@ def siirto():
     iidee = int(args.get('ID'))
     kaydyt = args.get('kaydyt')
     kaydyt = kaydyt.split(',')
-
+    print(iidee)
     sql = f"select screen_name from player where ID='{iidee}'"
     kursori = db.get_connection().cursor()
     kursori.execute(sql)
