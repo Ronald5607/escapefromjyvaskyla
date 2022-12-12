@@ -8,6 +8,7 @@ let kaydyt = ['EFJY'];
 let kaydytlayer = [L.marker([62.4034, 25.6810])];
 kaydytlayer = L.layerGroup(kaydytlayer);
 let lahimmatlayer = 0;
+let lahimmatlentokentat = [];
 
 function stringifykaydyt(kaydyt) {
   kaydyt.reduce((a, b) => {return a + ',' + b})
@@ -15,9 +16,12 @@ function stringifykaydyt(kaydyt) {
 
 const alustus = alotus();
 alustus.then((value) => {
+  lahimmatlentokentat = value.lahimmat;
   lahimmatlayer = lentokentta_layer(value.lahimmat);
   lahimmatlayer.addTo(map);
 })
+
+console.log(lahimmatlentokentat)
 
 const aa = () => {
   const uusi_sijainti = 'EFHK';
