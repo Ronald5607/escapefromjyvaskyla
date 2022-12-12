@@ -31,6 +31,17 @@
   background-color: grey;
 }
 
+#polttoaine {
+    /*idk*/
+  margin-left: 70vw;
+  padding: 1rem;
+  width: fit-content;
+  display: flex;
+  justify-content: space-evenly;
+  border-radius: 2rem;
+  background-color: pink;
+}
+
 #hp img {
     width: 3rem;
     padding: .4rem;
