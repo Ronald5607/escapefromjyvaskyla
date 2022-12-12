@@ -5,7 +5,7 @@ DROP TABLE goal_reached;
 SET FOREIGN_KEY_CHECKS=1;
  
 CREATE TABLE player (
-ID int not null auto_increment,
+ID varchar(40) not null,
 screen_name varchar(20),
 points int,
 hp int,
@@ -14,7 +14,7 @@ primary key (ID)
 );
  
 CREATE TABLE enemy (
-enemy_ID int not null auto_increment,
+enemy_ID varchar(40) not null,
 e1 varchar(20),
 e2 varchar(20),
 e3 varchar(20),

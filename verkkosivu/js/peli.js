@@ -23,6 +23,11 @@ alustus.then((value) => {
   lahimmatlayer = lentokentta_layer(value.lahimmat);
   lahimmatlayer.addTo(map);
 
+  vihollisboxi(value.viholliset);
+
+  tee_kentat(value.lahimmat);
+  syd(3);
+
   for (let lahin of lahimmatlayer.getLayers()) {
     lahin.addEventListener('click', () => {
       for (let kentta of lahimmatlentokentat) {
@@ -47,9 +52,19 @@ const aa = (sijainti, icao) => {
       pisteet = value.pisteet;
       polttoaine = value.polttoaine;
       hp = value.hp;
+      if (hp <= 0 || polttoaine <= 0) {
+        location.href = 'hävisit.html';
+        return
+      }
+      syd(hp);
 
       polttis.innerText = `Polttoaine: ${polttoaine}%`;
       document.querySelector("#polttoaine").appendChild(polttis);
+
+      points.innerText = `Pisteet: ${pisteet}`;
+      document.querySelector("#pisteet").appendChild(points);
+
+
 
       kaydytlayer.remove();
       kaydyt = kaydyt_lentokentat_array(uusi_icao, kaydyt);
@@ -62,6 +77,9 @@ const aa = (sijainti, icao) => {
     lahimmatlayer = lentokentta_layer(value.lahimmat);
     lahimmatlentokentat = value.lahimmat;
     lahimmatlayer.addTo(map);
+
+    tee_kentat(value.lahimmat);
+    vihollisboxi(value.viholliset);
 
     for (let lahin of lahimmatlayer.getLayers()) {
       lahin.addEventListener('click', () => {

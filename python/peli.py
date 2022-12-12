@@ -12,7 +12,7 @@ class Peli:
         self.havinnyt = False
 
     def tietokanta_siirto(self):
-        sql = f"update player set points={self.pisteet}, hp={self.hp}, fuel={self.polttoaine} where ID={self.gamerID}"
+        sql = f"update player set points={self.pisteet}, hp={self.hp}, fuel={self.polttoaine} where ID='{self.gamerID}'"
         kursori = self.yhteys.cursor()
         kursori.execute(sql)
 
@@ -31,6 +31,7 @@ class Peli:
         kursori = self.yhteys.cursor()
         kursori.execute(sql)
         tmp = kursori.fetchone()
+        print(self.gamerID)
         for i in range(0, 10, 2):
             self.viholliset.append(vihollinen.Vihollinen(tmp[i], tmp[i+1]))
 
@@ -39,7 +40,6 @@ class Peli:
         kursori = self.yhteys.cursor()
         kursori.execute(sql)
         tmp = kursori.fetchone()
-        print(tmp[0])
         self.polttoaine = tmp[0]
 
     def hae_hp(self):

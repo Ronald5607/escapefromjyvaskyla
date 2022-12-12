@@ -74,6 +74,7 @@ body {
     flex-wrap: wrap;
     grid-gap: 0.5rem;
     justify-content: left;
+    z-index: 99999;
 }
 
 #airports div {

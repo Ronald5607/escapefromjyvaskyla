@@ -6,6 +6,7 @@ import json
 from pelaaja import Pelaaja
 from peli import Peli
 from vihollinen import Vihollinen
+from uuid import uuid4
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -42,18 +43,16 @@ def get_name():
     db = Database()
     dict_name = request.args
     player_name = dict_name.get('name')
-        
 
-    sql = f"insert into player (screen_name,points,hp,fuel) values ('{player_name}',0,3,100)"
+    iidee = uuid4().hex
+
+    sql = f"insert into player (screen_name,points,hp,fuel,ID) values ('{player_name}',0,3,100,'{iidee}')"
     kursori = db.connection.cursor(buffered=True)
     kursori.execute(sql)
-    sql = f"select ID from player where screen_name='{player_name}'"
-    kursori.execute(sql)
-    iidee = kursori.fetchone()[0]
 
     uusi_peli = Peli(iidee, db.connection)
     uusi_peli.lisaa_vihollinen(5)
-    sql = f"insert into enemy (e1,e2,e3,e4,e5,e1_moves,e2_moves,e3_moves,e4_moves,e5_moves) values ('{uusi_peli.viholliset[0].tyyppi}','{uusi_peli.viholliset[1].tyyppi}','{uusi_peli.viholliset[2].tyyppi}','{uusi_peli.viholliset[3].tyyppi}','{uusi_peli.viholliset[4].tyyppi}',{uusi_peli.viholliset[0].siirrot},{uusi_peli.viholliset[1].siirrot},{uusi_peli.viholliset[2].siirrot},{uusi_peli.viholliset[3].siirrot},{uusi_peli.viholliset[4].siirrot})"
+    sql = f"insert into enemy (e1,e2,e3,e4,e5,e1_moves,e2_moves,e3_moves,e4_moves,e5_moves, enemy_ID) values ('{uusi_peli.viholliset[0].tyyppi}','{uusi_peli.viholliset[1].tyyppi}','{uusi_peli.viholliset[2].tyyppi}','{uusi_peli.viholliset[3].tyyppi}','{uusi_peli.viholliset[4].tyyppi}',{uusi_peli.viholliset[0].siirrot},{uusi_peli.viholliset[1].siirrot},{uusi_peli.viholliset[2].siirrot},{uusi_peli.viholliset[3].siirrot},{uusi_peli.viholliset[4].siirrot}, '{iidee}')"
     kursori.execute(sql)
 
     lahimmat = [
@@ -64,7 +63,8 @@ def get_name():
             24.7867,
             76.15986038241324,
             "Lounaassa",
-            100
+            100,
+            479
         ],
         [
             "EFHI",
@@ -73,7 +73,8 @@ def get_name():
             24.3495,
             70.47034696457746,
             "Lännessä",
-            100
+            100,
+            531
         ],
         [
             "EFJV",
@@ -82,7 +83,8 @@ def get_name():
             25.7115,
             18.881154808780686,
             "Etelässä",
-            100
+            100,
+            459
         ],
         [
             "EFPK",
@@ -91,7 +93,8 @@ def get_name():
             27.0028,
             70.00990795049564,
             "Idässä",
-            100
+            100,
+            390
         ],
         [
             "FI-0005",
@@ -100,7 +103,8 @@ def get_name():
             24.664,
             66.86299173741165,
             "Lännessä",
-            100
+            100,
+            0
         ]
     ]
 
@@ -110,7 +114,6 @@ def get_name():
     uusi_peli.tietokanta_siirto()
 
     viholliset = uusi_peli.tee_vihollislista()
-    print(iidee)
     vastaus = {
         'lahimmat': lahimmat,
         'ID': iidee,
@@ -125,10 +128,9 @@ def siirto():
     db = Database()
     args = request.args
     icao = args.get('ICAO')
-    iidee = int(args.get('ID'))
+    iidee = args.get('ID')
     kaydyt = args.get('kaydyt')
     kaydyt = kaydyt.split(',')
-    print(iidee)
     sql = f"select screen_name from player where ID='{iidee}'"
     kursori = db.get_connection().cursor()
     kursori.execute(sql)
@@ -147,6 +149,12 @@ def siirto():
     peli.hae_viholliset()
     peli.hae_hp()
     peli.hae_polttoaine()
+    if weather(icao) > 40:
+        if peli.polttoaine < 100:
+            peli.polttoaine += 10
+    else:
+        peli.polttoaine -= 10
+
 
     for vihollinen in peli.viholliset:
         vihollinen.siirron_lasku()
@@ -154,7 +162,6 @@ def siirto():
             peli.hp -= 1
         
     peli.tuhoa_vihollinen(icao, pelaaja)
-    peli.polttoaine -= 10
 
     peli.tietokanta_siirto()
 

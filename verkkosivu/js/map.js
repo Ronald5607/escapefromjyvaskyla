@@ -21,10 +21,26 @@ function lentokentta_layer(lentokentat) {
         lentokenttalayer.push(markkeri);
     }
     for (let kayty of lentokenttalayer) {
+        kayty.addEventListener('mouseout', () => {
+            for (let i = 0; i < 5; i++) {
+                document.getElementById(i).style.backgroundColor = 'grey';
+            }
+        })
+
         kayty.addEventListener('mouseover', () => {
             const latlon = kayty.getLatLng();
-            const direction = -Math.atan2(lentokone.lon - latlon.lng, lentokone.lat - latlon.lat);
+            const direction = Math.atan2(lentokone.lon - latlon.lng, lentokone.lat - latlon.lat) + 3.14/2;
             lentokone.rotation = direction;
+
+            for (let i = 0; i < 5; i++) {
+                let latitude = document.getElementById(i+10).innerText;
+                latitude = parseFloat(latitude.split(' ')[1]);
+                if (kayty.getLatLng().lat === latitude) {
+                    document.getElementById(i).style.backgroundColor = 'white';
+                }
+
+                
+            }
         });
     }
     return L.layerGroup(lentokenttalayer);
