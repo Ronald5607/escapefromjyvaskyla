@@ -21,7 +21,7 @@ let kuva = document.createElement("img");
 kuva.src = "kuvat/life.png";
 //kuva.alt = vihun nimi;
 let siirrot = document.createElement("p");
-siirrot.innerText = 4 //siirrot
+siirrot.innerText = "4"; //siirrot
 vihollinen.appendChild(nimi);
 vihollinen.appendChild(kuva);
 vihollinen.appendChild(siirrot);
@@ -29,3 +29,8 @@ const tyyppi = "iceman"; //hakee tyypin
 vihollinen.classList.add(tyyppi);
 document.querySelector("#viholliset").appendChild(vihollinen);
 
+//polttoaine
+const prosentti = 100;//tähän polttoaineen hakeminen (muuttujas prosentti)
+const polttis = document.createElement("p");
+polttis.innerText = `Polttoaine: ${prosentti}%`;
+document.querySelector("#polttoaine").appendChild(polttis);
