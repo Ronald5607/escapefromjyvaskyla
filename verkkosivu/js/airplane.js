@@ -2,8 +2,8 @@ class Airplane {
     constructor(imgurl, ctx, map) {
         this.img = this.makeimg(imgurl);
         //world lat/lon
-        this.lat = 62.2426;
-        this.lon = 25.7473;
+        this.lat = 62.4034;
+        this.lon = 25.6810;
 
         //canvas context used to draw the airplane
         this.ctx = ctx;

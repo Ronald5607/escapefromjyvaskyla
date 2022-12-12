@@ -67,7 +67,7 @@ def get_name():
         ],
         [
             "EFHI",
-            "HaapamÃ¤ki Airfield",
+            "Haapamä¤ki Airfield",
             62.2552,
             24.3495,
             70.47034696457746,
@@ -85,7 +85,7 @@ def get_name():
         ],
         [
             "EFPK",
-            "PieksÃ¤mÃ¤ki Airfield",
+            "Pieksämäki Airfield",
             62.2647,
             27.0028,
             70.00990795049564,
@@ -94,7 +94,7 @@ def get_name():
         ],
         [
             "FI-0005",
-            "MÃ¤nttÃ¤ - Sassi Airfield",
+            "Mänttä - Sassi Airfield",
             62.028,
             24.664,
             66.86299173741165,

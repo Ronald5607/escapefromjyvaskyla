@@ -15,10 +15,17 @@ function lentokentta_layer(lentokentat) {
         iconAnchor: [10, 10]
     });
     for (let lentokentta of lentokentat) {
-        const markkeri = L.marker([lentokentta.latitude, lentokentta.longitude], {
+        const markkeri = L.marker([lentokentta[2], lentokentta[3]], {
             icon:punainen
         });
         lentokenttalayer.push(markkeri);
+    }
+    for (let kayty of lentokenttalayer) {
+        kayty.addEventListener('mouseover', () => {
+            const latlon = kayty.getLatLng();
+            const direction = -Math.atan2(lentokone.lon - latlon.lng, lentokone.lat - latlon.lat);
+            lentokone.rotation = direction;
+        });
     }
     return L.layerGroup(lentokenttalayer);
 };
