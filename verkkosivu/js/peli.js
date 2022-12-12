@@ -22,15 +22,26 @@ alustus.then((value) => {
   lahimmatlentokentat = value.lahimmat;
   lahimmatlayer = lentokentta_layer(value.lahimmat);
   lahimmatlayer.addTo(map);
+
+  for (let lahin of lahimmatlayer.getLayers()) {
+    lahin.addEventListener('click', () => {
+      for (let kentta of lahimmatlentokentat) {
+        if (kentta.find(element => element === lahin.getLatLng().lat)){
+          aa([kentta[2], kentta[3]], kentta[0]);
+          map.panTo(lahin.getLatLng());
+        };
+      }
+    })
+  }
 })
 
 
 
-const aa = () => {
-  const uusi_sijainti = [61.856, 24.7867];
+const aa = (sijainti, icao) => {
+  const uusi_sijainti = sijainti;
   lentokone.lat = uusi_sijainti[0];
   lentokone.lon = uusi_sijainti[1];
-  const uusi_icao = 'EFHA';
+  const uusi_icao = icao;
     const lentokentat = siirto(uusi_icao, ID, stringifykaydyt(kaydyt));
     lentokentat.then((value) => {
       pisteet = value.pisteet;
@@ -40,20 +51,32 @@ const aa = () => {
       polttis.innerText = `Polttoaine: ${polttoaine}%`;
       document.querySelector("#polttoaine").appendChild(polttis);
 
+      kaydytlayer.remove();
       kaydyt = kaydyt_lentokentat_array(uusi_icao, kaydyt);
       kaydytlayer = kaydyt_lentokentat(vanha_sijainti, kaydytlayer);
       kaydytlayer.addTo(map);
       vanha_sijainti = uusi_sijainti;
 
+
     lahimmatlayer.remove();
     lahimmatlayer = lentokentta_layer(value.lahimmat);
+    lahimmatlentokentat = value.lahimmat;
     lahimmatlayer.addTo(map);
-    console.log(lahimmatlayer.getLayers())
+
+    for (let lahin of lahimmatlayer.getLayers()) {
+      lahin.addEventListener('click', () => {
+        for (let kentta of lahimmatlentokentat) {
+          if (kentta.find(element => element === lahin.getLatLng().lat)){
+            aa([kentta[2], kentta[3]], kentta[0]);
+            map.panTo(lahin.getLatLng());
+          };
+        }
+      })
+    }
 
 })
 }
 
-aa()
 
 
 
