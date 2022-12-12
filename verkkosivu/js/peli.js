@@ -1,15 +1,38 @@
 'use strict';
 
 const lentokone = new Airplane('kuvat/sus-plane-top.png', ctx, map);
+let hp = 3;
+let polttoaine = 100;
+let pisteet = 0;
+let kaydyt = ['EFJY'];
+let kaydytlayer = [L.marker([62.4034, 25.6810])];
+kaydytlayer = L.layerGroup(kaydytlayer);
+let lahimmatlayer = 0;
 
+function stringifykaydyt(kaydyt) {
+  kaydyt.reduce((a, b) => {return a + ',' + b})
+}
 
-
-const lentokentat = siirto('EFJY', 1, 'EFHK');
-lentokentat.then((value) => {
-  
-  const layeri = lentokentta_layer(value.lahimmat);
-  layeri.addTo(map);
+const alustus = alotus();
+alustus.then((value) => {
+  lahimmatlayer = lentokentta_layer(value.lahimmat);
+  lahimmatlayer.addTo(map);
 })
+
+const aa = () => {
+  const uusi_sijainti = 'EFHK';
+    const lentokentat = siirto(uusi_sijainti, 1, stringifykaydyt(kaydyt));
+    lentokentat.then((value) => {
+    lahimmatlayer = lentokentta_layer(value.lahimmat);
+    lahimmatlayer.addTo(map);
+
+    kaydyt = kaydyt_lentokentat_array(uusi_sijainti, kaydyt);
+    kaydytlayer = kaydyt_lentokentat(uusi_sijainti, kaydytlayer);
+    kaydytlayer.addTo(map);
+})
+}
+
+aa();
 
 
 

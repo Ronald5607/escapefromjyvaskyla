@@ -45,6 +45,8 @@ function kaydyt_lentokentat(sijainti, kaydyt) {
     return L.layerGroup(kentat);
 };
 
-function piirra_lentokentat(lentokenttalayer, kaydyt) {
-
+function kaydyt_lentokentat_array(sijainti, kaydyt) {
+    if (kaydyt.length > 0 && kaydyt.length > 9) kaydyt.shift();
+    kaydyt.push(sijainti);
+    return kaydyt
 }

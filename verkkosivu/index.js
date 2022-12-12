@@ -34,25 +34,7 @@ form.addEventListener('submit', function(event) {
       alert('nössö');
       event.preventDefault();
     } else {
-      const dict_name = {'name': name.value};
-      fetch('http://127.0.0.1:8888/name',
-          {
-            method: 'POST',
-            headers: {
-              'Content-type': 'application/json',
-              'Accept': 'application/json',
-            },
-            body: JSON.stringify(dict_name),
-          }).then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          alert('something is wrong');
-        }
-      }).then(jsonResponse => {
-            console.log(jsonResponse);
-          },
-      ).catch((err) => console.error(err));
+      
     }
   }
 });

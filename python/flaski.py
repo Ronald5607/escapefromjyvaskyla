@@ -10,7 +10,7 @@ from vihollinen import Vihollinen
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-db = Database() #testausta varten check out database.py
+
 
 
 """ @app.route('/weather/<icao>')
@@ -19,6 +19,7 @@ db = Database() #testausta varten check out database.py
 #for now laitoin databaseen muistiin myös api keyn. idk """
 
 def weather(icao):
+    db = Database()
     sql = "SELECT latitude_deg, longitude_deg FROM airport WHERE ident='" + icao + "'"
     kursori = db.get_connection().cursor()
     kursori.execute(sql)
@@ -38,6 +39,7 @@ def weather(icao):
 #hakee index sivulta javascriptillä lähetetyn pelaajan nimen
 #ei hyväksyny ku koitin pyörittää tätä laittamal app.runiin localhostin mut ilman hostin määritystä toimii
 def get_name():
+    db = Database()
     dict_name = request.args
     player_name = dict_name.get('name')
 
@@ -121,6 +123,7 @@ def get_name():
 
 @app.route('/siirto')
 def siirto():
+    db = Database()
     args = request.args
     icao = args.get('ICAO')
     iidee = int(args.get('ID'))
