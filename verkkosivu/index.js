@@ -12,7 +12,7 @@ clearInterval(id);
 id = setInterval(frame, 1);
 
 function frame() {
-  if (pos === 2180) {
+  if (pos === window.innerWidth) {
     pos = -200;
   } else {
     pos++;
@@ -55,7 +55,7 @@ form.addEventListener('submit', function(event) {
       ).catch((err) => console.error(err));
     }
   }
-})
+});
 
 
 
