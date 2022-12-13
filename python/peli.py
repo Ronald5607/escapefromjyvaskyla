@@ -35,6 +35,13 @@ class Peli:
         for i in range(0, 10, 2):
             self.viholliset.append(vihollinen.Vihollinen(tmp[i], tmp[i+1]))
 
+    def hae_pisteet(self):
+        sql = f"select points from player where player.ID='{self.gamerID}'"
+        kursori = self.yhteys.cursor()
+        kursori.execute(sql)
+        tmp = kursori.fetchone()
+        self.pisteet = tmp[0]
+
     def hae_polttoaine(self):
         sql = f"select fuel from player where player.ID='{self.gamerID}'"
         kursori = self.yhteys.cursor()

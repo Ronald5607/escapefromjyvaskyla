@@ -64,7 +64,8 @@ def get_name():
             76.15986038241324,
             "Lounaassa",
             100,
-            479
+            479,
+            "medium_airport"
         ],
         [
             "EFHI",
@@ -74,7 +75,8 @@ def get_name():
             70.47034696457746,
             "Lännessä",
             100,
-            531
+            531,
+            "closed"
         ],
         [
             "EFJV",
@@ -84,7 +86,8 @@ def get_name():
             18.881154808780686,
             "Etelässä",
             100,
-            459
+            459,
+            "heliport"
         ],
         [
             "EFPK",
@@ -94,7 +97,8 @@ def get_name():
             70.00990795049564,
             "Idässä",
             100,
-            390
+            390,
+            "small_airport"
         ],
         [
             "FI-0005",
@@ -104,7 +108,8 @@ def get_name():
             66.86299173741165,
             "Lännessä",
             100,
-            0
+            0,
+            "small_airport"
         ]
     ]
 
@@ -143,12 +148,15 @@ def siirto():
     pelaaja.hae_lahimmat()
     for lahin in pelaaja.lahimmat:
         lahin.append(weather(lahin[0]))
-        lahin.append(pelaaja.hae_tiedot(lahin[0])[2])
+        tiedot = pelaaja.hae_tiedot(lahin[0])
+        lahin.append(tiedot[2])
+        lahin.append(tiedot[3])
 
     peli = Peli(iidee, db.connection)
     peli.hae_viholliset()
     peli.hae_hp()
     peli.hae_polttoaine()
+    peli.hae_pisteet()
     if weather(icao) > 40:
         if peli.polttoaine < 100:
             peli.polttoaine += 10

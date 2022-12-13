@@ -1,11 +1,15 @@
 body {
+    margin: 0;
+    padding: 0;
     background-color: slategray;
+    font-family: 'Chakra Petch', sans-serif;
 }
 
 #game {
     display: flex;
     position: absolute;
-    height: 600px;
+    top: 5rem;
+    height: 65%;
     width: 800px;
 }
 
@@ -26,8 +30,12 @@ body {
 }
 
 #yläkulma {
-    margin-left: 800px;
-    position: sticky;
+    margin-left: 0;
+    padding-right: 20%;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    right: 0;
     display: flex;
     justify-content: right;
     height: 5rem;
@@ -68,6 +76,7 @@ body {
 
 #airports {
     margin-left: 800px;
+    margin-top: 5rem;
     padding: 1rem;
     grid-column-gap: 1rem;
     display: flex;
@@ -82,17 +91,19 @@ body {
     border-radius: 2rem;
     border-style: ridge;
     border-color: black;
-    background-color: grey;
+    background-color: rgb(24, 37, 41);
+    color: aliceblue;
 }
 
 #viholliset {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     position: fixed;
     width: 100vw;
     height: 14rem;
     bottom: 0px;
     padding: 1rem;
-    display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   gap: 1rem;
     background-color: darkgray;
 }
@@ -100,9 +111,30 @@ body {
 #viholliset div {
     margin: auto;
     padding: 1rem;
+    margin-bottom: 2rem;
+    width: 10vw;
     border-radius: 2rem;
     border-style: ridge;
     border-color: black;
+    font-size: 16px;
+    text-align: center;
+    justify-items: center;
+}
+
+#viholliset div p {
+    display: inline-flex;
+    margin: 1rem;
+    font-size: 20px;
+}
+
+#viholliset div h2 {
+    display: inline-flex;
+}
+
+#viholliset div img {
+    display: grid;
+    margin: auto;
+    
 }
 
 #viholliset img {
@@ -110,5 +142,5 @@ body {
 }
 
 .iceman {
-    background-color: cadetblue;
+    background-color: rgb(217, 221, 252);
 }

@@ -11,8 +11,8 @@ function lentokentta_layer(lentokentat) {
     const lentokenttalayer = [];
     const punainen = new L.Icon({
         iconUrl: 'kuvat/punainenmarker.png',
-        iconSize: [20, 20],
-        iconAnchor: [10, 10]
+        iconSize: [30, 30],
+        iconAnchor: [15, 15]
     });
     for (let lentokentta of lentokentat) {
         const markkeri = L.marker([lentokentta[2], lentokentta[3]], {
@@ -23,7 +23,9 @@ function lentokentta_layer(lentokentat) {
     for (let kayty of lentokenttalayer) {
         kayty.addEventListener('mouseout', () => {
             for (let i = 0; i < 5; i++) {
-                document.getElementById(i).style.backgroundColor = 'grey';
+                const element = document.getElementById(i);
+                element.style.backgroundColor = 'rgb(24, 37, 41)';
+                element.style.color = 'aliceblue';
             }
         })
 
@@ -38,7 +40,10 @@ function lentokentta_layer(lentokentat) {
                 let latitude = document.getElementById(i+10).innerText;
                 latitude = parseFloat(latitude.split(' ')[1]);
                 if (kayty.getLatLng().lat === latitude) {
-                    document.getElementById(i).style.backgroundColor = 'white';
+                    const element = document.getElementById(i);
+                    element.style.backgroundColor = 'aliceblue';
+                    element.style.color = 'rgb(24, 37, 41)';
+
                 }
 
                 

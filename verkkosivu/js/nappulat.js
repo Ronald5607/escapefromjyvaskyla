@@ -24,13 +24,36 @@ function vihollisboxi(viholliset) {
     let nimi = document.createElement("h2");
     nimi.innerText = vihulainen[0]; //vihun nimi
     let kuva = document.createElement("img");
-    kuva.src = "kuvat/life.png";
+    let kuvaus = document.createElement('h3');
+    switch(vihulainen[0]) {
+      case 'hujoppi':
+        kuvaus.innerText = 'Ei tykkää matalasta';
+        break;
+      case 'jäämies':
+        kuvaus.innerText = 'Vihaa etelää';
+        break;
+      case 'jättiläinen':
+        kuvaus.innerText = 'Klaustrofobinen';
+        break;
+      case 'pätkä':
+        kuvaus.innerText = 'Akrofobinen';
+        break;
+      case 'tuliukko':
+        kuvaus.innerText = 'Vihaa pohjoista';
+        break;
+      case 'peukaloinen':
+        kuvaus.innerText = 'Megalofobinen';
+        break;
+    }
+
+    kuva.src = "kuvat/" + vihulainen[0] + ".png";
     //kuva.alt = vihun nimi;
     let siirrot = document.createElement("p");
     siirrot.innerText = vihulainen[1]; //siirrot
     vihollinen.appendChild(nimi);
-    vihollinen.appendChild(kuva);
     vihollinen.appendChild(siirrot);
+    vihollinen.appendChild(kuva);
+    vihollinen.appendChild(kuvaus);
     const tyyppi = "iceman"; //hakee tyypin
     vihollinen.classList.add(tyyppi);
     document.querySelector("#viholliset").appendChild(vihollinen);
@@ -55,18 +78,21 @@ function tee_kentat(kentat) {
   kentat.forEach(function(kentta) {
     const airport = document.createElement('div');
     airport.setAttribute('id', i);
-    const nimi = document.createElement('p');
+    const nimi = document.createElement('h2');
+    const tyyppi = document.createElement('p');
     const latitude = document.createElement('p');
     latitude.setAttribute('id', i+10);
     const longitude = document.createElement('p');
     const elevation = document.createElement('p');
     const pilvisyys = document.createElement('p');
-    nimi.innerText = `Nimi: ${kentta[1]}`;
-    latitude.innerText = `Latitude: ${kentta[2]}`;
-    longitude.innerText = `Longitude: ${kentta[3]}`;
-    elevation.innerText = `Elevation: ${kentta[7]}`;
-    pilvisyys.innerText = `Pilvisyys: ${kentta[6]}`;
+    nimi.innerText = `${kentta[1]}`;
+    tyyppi.innerHTML = `<b>Tyyppi:</b> ${kentta[8]}`;
+    latitude.innerHTML = `<b>Leveysaste:</b> ${kentta[2]}`;
+    longitude.innerHTML = `<b>Pituusaste:</b> ${kentta[3]}`;
+    elevation.innerHTML = `<b>Korkeus merenpinnasta:</b> ${Math.round(kentta[7]*0.3048)}m`;
+    pilvisyys.innerHTML = `<b>Pilvisyys:</b> ${kentta[6]}%`;
     airport.appendChild(nimi);
+    airport.appendChild(tyyppi);
     airport.appendChild(latitude);
     airport.appendChild(longitude);
     airport.appendChild(elevation);
