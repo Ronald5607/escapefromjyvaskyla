@@ -28,7 +28,12 @@ form.addEventListener('submit', function(event) {
   if (name.value === '' || name.value === null) {
     alert('Valitse itsellesi käyttäjänimi');
     event.preventDefault();
-  } else {
+  }
+  else if (name.value.length>20) {
+    alert(`Käyttäjänimi on ${name.value.length-20} merkkiä liian pitkä (20 on maksimi)`);
+    event.preventDefault();
+  }
+  else {
     let result = confirm(`Oletko valmis, ${name.value}?`);
     if (result === false) {
       alert('nössö');
