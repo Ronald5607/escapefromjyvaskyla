@@ -21,5 +21,11 @@ async function alotus() {
 }
 
 
+async function top5() {
+    const vastaus = await fetch('http://127.0.0.1:8888/top5');
+    return await vastaus.json();
+}
+
+
 
 

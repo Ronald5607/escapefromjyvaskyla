@@ -186,7 +186,14 @@ def siirto():
 
 
 
-
+@app.route('/top5')
+def top5():
+    db = Database()
+    sql = 'SELECT screen_name, points FROM player ORDER BY points DESC limit 5;'
+    kursori = db.connection.cursor()
+    kursori.execute(sql)
+    jep = kursori.fetchall()
+    return list(jep)
 
 
 
