@@ -8,8 +8,8 @@ body {
 #game {
     display: flex;
     position: absolute;
-    top: 5rem;
-    height: 65%;
+    top: 8%;
+    height: 68.5%;
     width: 800px;
 }
 
@@ -38,7 +38,7 @@ body {
     right: 0;
     display: flex;
     justify-content: right;
-    height: 5rem;
+    height: 8%;
     gap: 1rem;
     top: 0px;
     background-color: rgb(24, 37, 41);
