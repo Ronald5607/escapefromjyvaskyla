@@ -5,10 +5,44 @@
 body {
     background-image: url("kuvat/Jyväskylä_Airport_1.png");
     background-size: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    background-color: rgb(24, 37, 41);
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8%;
+    text-align: center;
+    justify-content: center;
+}
+
+#logo {
+    display: flex;
+
+    color: aliceblue;
+}
+
+#logo img {
+    height: 5rem;
+    width: auto;
+    position: relative;
+    
+}
+
+header img {
+    display: inline;
 }
 
 h1 {
-    text-align: center;
+    /* text-align: center; */
+    display: inline;
+    color: aliceblue;
 }
 
 .container {
@@ -24,26 +58,37 @@ input[type=text] {
     box-shadow: 0 10px 105px 4px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
     text-align: center;
+    background-color: aliceblue;
+    color: rgb(24, 37, 41);
 }
 
 input[type=submit] {
     padding: .5rem;
     border-radius: 30px;
     justify-content: center;
+    background-color: aliceblue;
+    cursor: pointer;
+    color: rgb(24, 37, 41);
 }
 
+
 input[type=submit]:hover {
-    background-color: aquamarine;
+    background-color: rgb(24, 37, 41);
+    color: aliceblue;
 }
 
 .ei {
     padding: .5rem;
     border-radius: 30px;
     justify-content: center;
+    background-color: aliceblue;
+    cursor: pointer;
+    color: rgb(24, 37, 41);
 }
 
 .ei:hover {
-    background-color: aquamarine;
+    background-color: rgb(24, 37, 41);
+    color: aliceblue;
 }
 
 .animation {
@@ -60,11 +105,12 @@ img {
 
 .stoori {
     display: block;
-    background-color: black;
-    width: 20rem;
+    background-color: rgba(24, 37, 41, 0.90);
+    width: 50%;
     text-align: center;
     margin: auto;
     border-radius: 10px;
+    padding: 0.3rem;
 }
 
 p {
