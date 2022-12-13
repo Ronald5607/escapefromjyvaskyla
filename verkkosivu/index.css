@@ -57,3 +57,16 @@ img {
     height: 200px;
     position: absolute;
 }
+
+.stoori {
+    display: block;
+    background-color: black;
+    width: 20rem;
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+}
+
+p {
+    color: white;
+}
