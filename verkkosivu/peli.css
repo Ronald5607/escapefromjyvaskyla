@@ -41,7 +41,7 @@ body {
     height: 5rem;
     gap: 1rem;
     top: 0px;
-    background-color: navy;
+    background-color: rgb(24, 37, 41);
 }
 
 #pisteet {
@@ -98,21 +98,22 @@ body {
 #viholliset {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    padding-bottom: 5rem;
     position: fixed;
     width: 100vw;
-    height: 14rem;
+    height: 20%;
     bottom: 0px;
     padding: 1rem;
   /* justify-content: space-evenly; */
-  gap: 1rem;
+  gap: 0;
     background-color: darkgray;
 }
 
 #viholliset div {
     margin: auto;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    width: 10vw;
+    padding: 0.5rem;
+    width: 80%;
+    height: 80%;
     border-radius: 2rem;
     border-style: ridge;
     border-color: black;
