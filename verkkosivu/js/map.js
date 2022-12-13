@@ -29,7 +29,9 @@ function lentokentta_layer(lentokentat) {
 
         kayty.addEventListener('mouseover', () => {
             const latlon = kayty.getLatLng();
-            const direction = Math.atan2(lentokone.lon - latlon.lng, lentokone.lat - latlon.lat) + 3.14/2;
+            const markercoords = map.latLngToContainerPoint(latlon);
+            const airplanecoords = map.latLngToContainerPoint([lentokone.lat, lentokone.lon]);
+            const direction = Math.atan2(airplanecoords.y - markercoords.y, airplanecoords.x - markercoords.x) + 3.14;
             lentokone.rotation = direction;
 
             for (let i = 0; i < 5; i++) {
