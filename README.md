@@ -1,4 +1,4 @@
-# Escape from jyväskylä
+# Escape from Jyväskylä
 
 <img src="index_kuva.PNG" alt="index" width="400"/>
 
