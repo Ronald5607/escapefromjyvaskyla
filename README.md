@@ -1,9 +1,7 @@
-# lentopeli
+# Escape from jyväskylä
 
-## hyvä lentopeli
+<img src="index_kuva.png" alt="index" width="400"/>
 
-### Escape from jyväskylä
+<img src="peli_kuva.png" alt="index" width="400"/>
 
-pelaa näin: kirjoita 1-5 ja paina enter lentääksesi ruudulla näkyville lentokentille.
-kirjoita 6 teleportttaaksesi jos sinulla on 200 pistettä tai yli.
-kirjoita lopeta lopettaaksesi
+<img src="havisit_kuva.png" alt="index" width="400"/>

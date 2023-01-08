@@ -4,11 +4,11 @@ import mysql.connector
 
 
 class Pelaaja:
-    def __init__(self, nimi: str, yhteys): #pelaajalle pitää alustaa nimi (esim (input("Nimi: "))ja aloituspaikka
+    def __init__(self, nimi: str, yhteys): 
         self.nimi = nimi
         self.yhteys = yhteys
         self.lentokentan_nimi = 'Jyväskylä Airport'
-        self.sijainti = 'EFJY' #jos haluaa sisältää aseman nimen tähän, voisi sijainnin muuntaa esim. tupleksi jossa on ident ja nimi
+        self.sijainti = 'EFJY' 
         self.viimeisimmat = []
         self.lahimmat = []
         self.hae_lahimmat()
